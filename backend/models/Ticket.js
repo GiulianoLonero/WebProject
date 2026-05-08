@@ -9,19 +9,13 @@ const ticketSchema = new mongoose.Schema({
 
     status:{
         type: String,
-        enum: ["avaiable","locked","purchased"],
-        default: "avaiable"
+        enum: ["available","locked","purchased"],
+        default: "available"
     },
 
     IDTicket:{
         type: String,
-        required: true
-    },
-
-    IDEvent:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Event",
-        required: true
+        required: true,
     },
 
     lockedBy: {
@@ -33,7 +27,6 @@ const ticketSchema = new mongoose.Schema({
     lockedUntil: {
         type: Date,
         default: null
-    
     }
 });
 

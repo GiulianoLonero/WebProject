@@ -7,15 +7,10 @@ const artistSchema = new mongoose.Schema({
         required: true
     },
 
-    IDArtist:{
-        type: String,
-        required: true,
-        unique: true
-    },
-
     publications:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Event"
+        ref: "Event",
+        default: null
     }]
 
 });

@@ -26,13 +26,7 @@ const eventSchema = new mongoose.Schema({
             required: true
         }
     },
-
-    IDEvent:{
-        type: String,
-        required: true,
-        unique: true
-    },
-
+    
     numberOfTickets:{
         type: Number
     },

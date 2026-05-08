@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+    
     name:{
         type: String,
         required: true
@@ -30,13 +31,7 @@ const userSchema = new mongoose.Schema({
     ticketList:[{
         type: mongoose.Schema.ObjectId,
         ref: "Ticket"
-    }],
-
-    IDUser:{
-        type: String,
-        required: true,
-        unique: true
-    }
+    }]
 
 });
 
