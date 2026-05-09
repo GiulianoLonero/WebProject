@@ -4,7 +4,8 @@ const ticketSchema = new mongoose.Schema({
     
     price:{
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
 
     status:{
@@ -27,6 +28,11 @@ const ticketSchema = new mongoose.Schema({
     lockedUntil: {
         type: Date,
         default: null
+    },
+    event: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+        required: true
     }
 });
 

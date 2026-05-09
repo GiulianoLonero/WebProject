@@ -28,13 +28,15 @@ const eventSchema = new mongoose.Schema({
     },
     
     numberOfTickets:{
-        type: Number
+        type: Number,
+        default: 0
     },
 
     artists:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Artist",
-        required: true
+        required: true,
+        default: 1
     }]
 });
 
