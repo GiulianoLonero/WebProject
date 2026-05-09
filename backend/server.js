@@ -7,12 +7,13 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/users",require("./routes/users"))
+app.use("/api/auth",require("./routes/auth"))
 
-const atlasurl = process.env.atlasuri;
+const atlasuri = process.env.atlasuri;
 
-mongoose.connect(atlasurl)
+mongoose.connect(atlasuri)
     .then(() => console.log("funziona cazzo"))
-    .catch((error) => console.log("Connection error"));
+    .catch((error) => console.log("Error:", error, "\n"));
     
 
 app.listen(5000);

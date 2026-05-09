@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
     },
 
     orderData:{
-        type: this.applyTimestamps,
+        type: Date,
         required: true
     },
     

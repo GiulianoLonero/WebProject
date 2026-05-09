@@ -32,7 +32,8 @@ const ticketSchema = new mongoose.Schema({
     event: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Event",
-        required: true
+        required: true,
+        unique: true
     }
 });
 
