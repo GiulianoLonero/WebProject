@@ -4,10 +4,10 @@ const router = express.Router();
 const bcrypt = require("bcrypt")
 const User = require("../models/User");
 require("dotenv").config();
-const rateLimiter = require("express-rate-limit")
+const rateLimit = require("express-rate-limit")
 
 const loginLimiter = rateLimit({
-    windowsMs: 5*60*1000,
+    windowMs: 5*60*1000,
     max: 3,
     message: {
         message: "Too many trials, try again in 5 minutes"
@@ -33,7 +33,7 @@ router.post("/", loginLimiter, async(req,res) => {
             return res.status(400).json({message: "Email or Password not correct!"});
         }
 
-        const token = jwt.sign({id: user._id}, {secretOrPrivateKey: process.env.privateKey}, {expiresIn: "1h"});
+        const token = jwt.sign({id: user._id}, process.env.privateKey, {expiresIn: "1h"});
 
         res.status(200).json({message: "Successfully logged in!", token: token})
         
