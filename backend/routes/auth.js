@@ -6,7 +6,7 @@ const User = require("../models/User");
 require("dotenv").config();
 const rateLimit = require("express-rate-limit")
 
-const waitingTIme = 5*60*1000
+const waitingTime = 5*60*1000
 
 const loginLimiter = rateLimit({
     windowMs: waitingTime,
@@ -98,7 +98,7 @@ router.get("/refresh", async (req, res) => {
                 return res.status(403).json({ message: "Refresh Token expired"}); 
             }
 
-            const newAccessToken = jwt.sign({id = user._id}, process.env.ATPrivateKey,{expiresIn: "1h"});
+            const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "1h"});
 
             res.status(200).json({ accessToken: newAccessToken });
         });
