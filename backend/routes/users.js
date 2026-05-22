@@ -2,6 +2,21 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt")
+const verifyToken = require("../middleware/verifyToken");
+
+router.get("/verify", verifyToken, async (req,res) => {
+    try{
+        const user = await User.findById(req.user.id).select("-password -refreshToken");
+
+        if(!user){
+            return res.status(404).json({message: "Access denied"});
+        }
+        return res.status(200).json({message: "Access granted", userData: user})
+    }catch{
+        return res.status(500).json({message: "Server error"});
+    }
+});
+
 
 router.post("/", async(req,res) => {
     try{
