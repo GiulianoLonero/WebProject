@@ -5,7 +5,7 @@ import axios from "axios";
 
 function InputBox({type, placeholder, value, onChange}) {
     return (
-        <div classname="input-box">
+        <div className="input-box">
             <input
                 type = {type}
                 placeholder = {placeholder}
@@ -16,7 +16,8 @@ function InputBox({type, placeholder, value, onChange}) {
         </div>
     );  
 }
-const handleSubmit = async (e) => {
+
+const handleSubmit = async (e, email, password, setErrorMessage) => {
     e.preventDefault();
     setErrorMessage("");
     try {
@@ -30,9 +31,14 @@ const handleSubmit = async (e) => {
             }
         );
         const {accessToken} = response.data;
+        console.log("daje")
+
     } catch(error){
-        if (error.response)
-            setErrorMessage(error.response.data.message)
+        if (error.response){
+            setErrorMessage(error.response.data.message);
+        } else {
+            setErrorMessage("Server error");
+        }
     }
 }
 const LoginForm = () => {
@@ -41,8 +47,9 @@ const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState("")
     return (
         <div className="wrapper">
-            <form className="form" onSubmit = {handleSubmit}>
+            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage)}>
                 <h1> Login </h1>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <InputBox 
                 type = "text"
                 placeholder = "mail"
@@ -50,7 +57,7 @@ const LoginForm = () => {
                 onChange={e => setEmail(e.target.value)}
                 />
                 <InputBox 
-                type = "text"
+                type = "password"
                 placeholder = "password"
                 value = {password}
                 onChange={e => setPassword(e.target.value)}
