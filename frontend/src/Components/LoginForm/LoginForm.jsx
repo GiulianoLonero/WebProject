@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./LoginForm.css";
 import axios from "axios";
 import {useAuth } from "../../hooks/useAuth"
+import { useNavigate } from 'react-router-dom';
 
 
 function InputBox({type, placeholder, value, onChange}) {
@@ -18,7 +19,7 @@ function InputBox({type, placeholder, value, onChange}) {
     );  
 }
 
-const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal) => {
+const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, navigate) => {
     e.preventDefault();
     setErrorMessage("");
     try {
@@ -31,12 +32,15 @@ const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal) =>
                 withCredentials: true
             }
         );
-        const {user, accessToken} = response.data;
+        const accessToken = response.data;
+        const userData = {mail: email};
 
-        loginGlobal(user, accessToken)
+        loginGlobal(userData, accessToken)
         console.log("daje")
+        navigate('/');
 
     } catch(error){
+        console.error(error);
         if (error.response){
             setErrorMessage(error.response.data.message);
         } else {
@@ -49,9 +53,11 @@ const LoginForm = () => {
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
     const {login} = useAuth();
+    const navigate = useNavigate();
+
     return (
         <div className="wrapper">
-            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage, login)}>
+            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage, login, navigate)}>
                 <h1> Login </h1>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <InputBox 
