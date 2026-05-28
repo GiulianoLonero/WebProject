@@ -22,6 +22,7 @@ function InputBox({type, placeholder, value, onChange}) {
 const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, navigate) => {
     e.preventDefault();
     setErrorMessage("");
+
     try {
         const response = await axios.post("http://localhost:5000/api/auth",
             {
@@ -32,15 +33,13 @@ const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, na
                 withCredentials: true
             }
         );
-        const accessToken = response.data;
-        const userData = {mail: email};
+
+        const {accessToken, userData} = response.data;
 
         loginGlobal(userData, accessToken)
-        console.log("daje")
         navigate('/');
 
     } catch(error){
-        console.error(error);
         if (error.response){
             setErrorMessage(error.response.data.message);
         } else {

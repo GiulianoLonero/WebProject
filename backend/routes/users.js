@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt")
 const verifyToken = require("../middleware/verifyToken");
 
+// GET Verify
 router.get("/verify", verifyToken, async (req,res) => {
     try{
         const user = await User.findById(req.user.id).select("-password -refreshToken");
@@ -17,7 +18,7 @@ router.get("/verify", verifyToken, async (req,res) => {
     }
 });
 
-
+// Create User
 router.post("/", async(req,res) => {
     try{
         const userDatas = req.body;

@@ -8,30 +8,33 @@ const rateLimit = require("express-rate-limit")
 
 const waitingTime = 5*60*1000
 
+// Trial limiter by IP
 const loginLimiter = rateLimit({
     windowMs: waitingTime,
     max: 3,
     message: {
         message: "Too many trials, try again in 5 minutes"
     },
-    standardHeaders: true //forse da togliere
+    standardHeaders: true
 });
 
+// Login
 router.post("/", loginLimiter, async(req,res) => {
     try{
         const {mail, password} = req.body;
 
-        // Per evitare qualsiasi NoSQL Injection
+        // To avoid No SQL Injection
         if (typeof(mail) !== "string" || typeof(password) !== "string")
             return res.status(400).json({message: "Invalid input type"})
 
-        // Controllo sull'utente
+        // User control
         const user = await User.findOne({mail: mail});
         
         if (!user){
             return res.status(400).json({message: "Email or Password not correct!"});
         }
 
+        // Trial limiter by trials
         if(user.lockUntil && user.lockUntil > Date.now()){
             const blockedFor = Math.ceil((user.lockUntil - Date.now()) / (1000 * 60));
             return res.status(423).json({ 
@@ -57,7 +60,7 @@ router.post("/", loginLimiter, async(req,res) => {
             await user.save();
         }
         
-        // Generazione dei token
+        // Token Generation
         const accessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey, {expiresIn: "1h"});
         const refreshToken = jwt.sign({id: user._id}, process.env.RTPrivateKey, {expiresIn: "7d"});
         user.refreshToken = refreshToken;
@@ -70,7 +73,13 @@ router.post("/", loginLimiter, async(req,res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        res.status(200).json({message: "Successfully logged in!", accessToken: accessToken})
+        const safeUserData = {
+            mail: user.name,
+            nome: user.lastName,
+            ruolo: user.mail
+        };
+        
+        res.status(200).json({message: "Successfully logged in!", accessToken: accessToken, userData: safeUserData})
         
     } catch(error){
 
@@ -79,6 +88,7 @@ router.post("/", loginLimiter, async(req,res) => {
     }
 });
 
+// GET Refresh Token
 router.get("/refresh", async (req, res) => {
     try{
         const cookies = req.cookies;

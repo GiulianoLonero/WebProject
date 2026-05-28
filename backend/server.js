@@ -16,7 +16,7 @@ app.use("/api/auth",require("./routes/auth"))
 const atlasuri = process.env.atlasuri;
 
 mongoose.connect(atlasuri)
-    .then(() => console.log("funziona cazzo"))
+    .then(() => console.log("Server listening..."))
     .catch((error) => console.log("Error:", error, "\n"));
     
 
