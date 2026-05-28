@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./LoginForm.css";
 import axios from "axios";
+import {useAuth } from "../../hooks/useAuth"
 
 
 function InputBox({type, placeholder, value, onChange}) {
@@ -17,7 +18,7 @@ function InputBox({type, placeholder, value, onChange}) {
     );  
 }
 
-const handleSubmit = async (e, email, password, setErrorMessage) => {
+const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal) => {
     e.preventDefault();
     setErrorMessage("");
     try {
@@ -30,7 +31,9 @@ const handleSubmit = async (e, email, password, setErrorMessage) => {
                 withCredentials: true
             }
         );
-        const {accessToken} = response.data;
+        const {user, accessToken} = response.data;
+
+        loginGlobal(user, accessToken)
         console.log("daje")
 
     } catch(error){
@@ -45,9 +48,10 @@ const LoginForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+    const {login} = useAuth();
     return (
         <div className="wrapper">
-            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage)}>
+            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage, login)}>
                 <h1> Login </h1>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <InputBox 
