@@ -74,9 +74,9 @@ router.post("/", loginLimiter, async(req,res) => {
         });
 
         const safeUserData = {
-            mail: user.name,
-            nome: user.lastName,
-            ruolo: user.mail
+            name: user.name,
+            lastName: user.lastName,
+            mail: user.mail
         };
         
         res.status(200).json({message: "Successfully logged in!", accessToken: accessToken, userData: safeUserData})
