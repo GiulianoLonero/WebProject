@@ -4,19 +4,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt")
 const User = require("../models/User");
 require("dotenv").config();
-const rateLimit = require("express-rate-limit")
+const loginLimiter = require("../middleware/loginLimiter")
 
 const waitingTime = 5*60*1000
-
-// Trial limiter by IP
-const loginLimiter = rateLimit({
-    windowMs: waitingTime,
-    max: 3,
-    message: {
-        message: "Too many trials, try again in 5 minutes"
-    },
-    standardHeaders: true
-});
 
 // Login
 router.post("/", loginLimiter, async(req,res) => {
