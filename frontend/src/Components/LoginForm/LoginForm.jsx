@@ -4,7 +4,7 @@ import axios from "axios";
 import {useAuth } from "../../hooks/useAuth"
 import { useNavigate } from 'react-router-dom';
 
-
+// Function to generate a specific HTML Input box 
 function InputBox({type, placeholder, value, onChange}) {
     return (
         <div className="input-box">
@@ -19,6 +19,7 @@ function InputBox({type, placeholder, value, onChange}) {
     );  
 }
 
+// Async function called on submit button
 const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, navigate) => {
     e.preventDefault();
     setErrorMessage("");
@@ -47,6 +48,8 @@ const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, na
         }
     }
 }
+
+// Form
 const LoginForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -60,16 +63,16 @@ const LoginForm = () => {
                 <h1> Login </h1>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <InputBox 
-                type = "text"
-                placeholder = "mail"
-                value = {email}
-                onChange={e => setEmail(e.target.value)}
+                    type = "text"
+                    placeholder = "mail"
+                    value = {email}
+                    onChange={e => setEmail(e.target.value)}
                 />
                 <InputBox 
-                type = "password"
-                placeholder = "password"
-                value = {password}
-                onChange={e => setPassword(e.target.value)}
+                    type = "password"
+                    placeholder = "password"
+                    value = {password}
+                    onChange={e => setPassword(e.target.value)}
                 />
                 <button type="submit">Login</button>
             </form>
