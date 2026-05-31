@@ -12,6 +12,7 @@ app.use(cors({origin: "http://localhost:3000", credentials: true})); //origin: p
 app.use(cookieParser());
 app.use("/api/users", require("./routes/users"))
 app.use("/api/auth", require("./routes/auth"))
+app.use("/api/events", require("./routes/events"));
 
 const atlasuri = process.env.atlasuri;
 
