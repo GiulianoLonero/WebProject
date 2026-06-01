@@ -1,0 +1,116 @@
+/* Container principale della Navbar */
+.Navbar {
+  background-color: #111215; /* Sfondo scuro profondo */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Il form che fa da contenitore agli elementi */
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px; /* Spazio uniforme tra i vari elementi */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Stile comune per i menu a tendina (select) */
+.select {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  border: 1px solid #2c2e35;
+  border-radius: 8px;
+  background-color: #1a1c23; /* Grigio scuro coordinato */
+  color: #f3f4f6; /* Testo quasi bianco */
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.select:hover {
+  border-color: #4b5563;
+  background-color: #22252f;
+}
+
+.select:focus {
+  border-color: #ff4757; /* Accent color quando cliccato */
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+}
+
+/* Barra di ricerca testuale */
+.searchBar {
+  flex: 1; /* 💡 Questo fa sì che la barra si allunghi prendendo tutto lo spazio rimasto libero */
+  min-width: 200px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid #2c2e35;
+  border-radius: 8px;
+  background-color: #1a1c23;
+  color: #f3f4f6;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.searchBar::placeholder {
+  color: #6b7280; /* Colore del testo "Ricerca qui..." */
+}
+
+.searchBar:focus {
+  border-color: #ff4757;
+  background-color: #22252f;
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+}
+
+/* Il bottone "Cerca" */
+.button {
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #ff4757; /* Rosso/corallo acceso (stile TicketOne/Netflix) */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+.button:hover {
+  background-color: #ff6b81;
+  transform: translateY(-1px); /* Piccolo effetto sollevamento */
+  box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
+}
+
+.button:active {
+  transform: translateY(1px); /* Ritorna giù quando lo premi fisicamente */
+}
+
+/* 📱 RESPONSIVE DESIGN: Ottimizzazione per Smartphone e Tablet */
+@media (max-width: 768px) {
+  .Navbar {
+    padding: 1rem;
+  }
+
+  .form {
+    flex-direction: column; /* Gli elementi si incolonnano uno sotto l'altro */
+    align-items: stretch; /* Tutti gli elementi prendono la larghezza massima dello schermo */
+    gap: 12px;
+  }
+
+  .select, .searchBar, .button {
+    width: 100%; /* Forza la larghezza intera su mobile */
+    box-sizing: border-box;
+  }
+}
