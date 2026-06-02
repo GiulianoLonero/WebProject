@@ -1,0 +1,111 @@
+/* 1. Il Contenitore Esterno (La telecamera 3D) */
+.FlashcardContainer {
+  background-color: transparent;
+  width: 320px; /* Larghezza della card */
+  height: 450px; /* Altezza della card */
+  perspective: 1000px; /* Dà il senso di profondità 3D */
+  margin: 15px;
+  cursor: pointer;
+}
+
+/* 2. L'involucro che ruota */
+.FlashcardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  /* L'animazione fluida che dura 0.8 secondi */
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* 3. L'effetto magico: quando passi col mouse sul Container, l'Inner ruota */
+.FlashcardContainer:hover .FlashcardInner {
+  transform: rotateY(180deg);
+}
+
+/* 4. Regole comuni per Fronte e Retro */
+.FlashcardFront, .FlashcardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Nasconde il lato non inquadrato */
+  border-radius: 15px; /* Bordi arrotondati morbidi */
+  overflow: hidden; /* Impedisce alle immagini di uscire dai bordi */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25); /* Ombreggiatura base */
+}
+
+/* --- FRONTE --- */
+.FlashcardFront {
+  background-color: #fff;
+}
+
+.imageFront {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Taglia e centra l'immagine perfettamente */
+}
+
+/* --- RETRO --- */
+.FlashcardBack {
+  background-color: #111;
+  transform: rotateY(180deg); /* Questo lato parte già girato! */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1; /* Livello più basso */
+}
+
+/* Lo shading: uno strato scuro semitrasparente */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.80); /* 80% di nero */
+  z-index: 2; /* Livello intermedio */
+}
+
+/* Contenitore dei testi */
+.textContent {
+  position: relative;
+  z-index: 3; /* Livello più alto, deve stare sopra tutto */
+  padding: 25px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- STILI PER I TESTI --- */
+.FlashcardTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.FlashcardDesc {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #d1d1d1;
+  font-style: italic;
+}
+
+.FlashcardDate, .FlashcardLoc {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #ff9900; /* Un tocco di arancione/giallo per far risaltare i dati */
+}

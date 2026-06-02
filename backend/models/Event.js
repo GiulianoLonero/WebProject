@@ -36,14 +36,21 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Artist",
         required: true,
-        default: 0
+        default: []
     }],
 
     genre:{
         type: String,
         required: false,
-        default: 1
-    }    
+        default: "Unknown"
+    },
+    description:{
+        type: String,
+        required: false
+    },
+    imgurl:{
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Event', eventSchema);

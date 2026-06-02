@@ -29,9 +29,10 @@ const Home = function(){
                 setEvents(response.data)
             } catch (error){
                 console.error("Error during events research", error.message)
-            }
+            };
         }
-    });
+        filteredEvents();
+    }, [searchParams]);
 
     return( 
         <div>

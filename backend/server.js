@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: "http://localhost:3000", credentials: true})); //origin: porta dove sarà situato il frontend, credentials:true per autorizzare il frontend
 app.use(cookieParser());
+
 app.use(router);
 
 const atlasuri = process.env.atlasuri;

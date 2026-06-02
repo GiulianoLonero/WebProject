@@ -2,9 +2,9 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth"
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css"
-import logo from  "../Assets/favicon.ico"
 
 const Header = function(){
+    const logo = "/Assets/favicon.ico"
     const { isAuth, logout } = useAuth();
     const navigate = useNavigate();
     const handleLogout = () => {
