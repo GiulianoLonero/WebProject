@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors"); //middleware per la gestione dei cookie che passano da frontend a backend
+const router = require("./router")
 require("dotenv").config();
 
 
@@ -10,9 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: "http://localhost:3000", credentials: true})); //origin: porta dove sarà situato il frontend, credentials:true per autorizzare il frontend
 app.use(cookieParser());
-app.use("/api/users", require("./routes/users"))
-app.use("/api/auth", require("./routes/auth"))
-app.use("/api/events", require("./routes/events"));
+app.use(router);
 
 const atlasuri = process.env.atlasuri;
 

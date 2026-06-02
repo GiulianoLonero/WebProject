@@ -19,7 +19,7 @@ const Home = function(){
                 const location = searchParams.get("location")
                 const search = searchParams.get("search")
 
-                const response = await axios.get("http://localhost:5000/api/events", {
+                const response = await axios.get("http://localhost:5000/api/v1/events", {
                     params: {
                         genre: genre,
                         location: location,

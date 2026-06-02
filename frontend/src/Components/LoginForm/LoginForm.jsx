@@ -25,7 +25,7 @@ const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, na
     setErrorMessage("");
 
     try {
-        const response = await axios.post("http://localhost:5000/api/auth",
+        const response = await axios.post("http://localhost:5000/api/v1/auth",
             {
                 mail: email,
                 password: password

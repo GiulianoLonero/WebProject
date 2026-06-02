@@ -1,15 +1,12 @@
 const jwt = require("jsonwebtoken");
-const express = require("express");
-const router = express.Router();
 const bcrypt = require("bcrypt")
 const User = require("../models/User");
 require("dotenv").config();
-const loginLimiter = require("../middleware/loginLimiter")
 
 const waitingTime = 5*60*1000
 
 // Login
-router.post("/", loginLimiter, async(req,res) => {
+const login= async(req,res) => {
     try{
         const {mail, password} = req.body;
 
@@ -51,7 +48,7 @@ router.post("/", loginLimiter, async(req,res) => {
         }
         
         // Token Generation
-        const accessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey, {expiresIn: "1h"});
+        const accessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey, {expiresIn: "20s"});
         const refreshToken = jwt.sign({id: user._id}, process.env.RTPrivateKey, {expiresIn: "7d"});
         user.refreshToken = refreshToken;
         await user.save();
@@ -76,10 +73,10 @@ router.post("/", loginLimiter, async(req,res) => {
         res.status(500).json({message: "Server error"})
         console.log(error.message)
     }
-});
+};
 
 // GET Refresh Token
-router.get("/refresh", async (req, res) => {
+const refreshToken = async (req, res) => {
     try{
         const cookies = req.cookies;
         if (!cookies || !cookies.jwt){
@@ -93,19 +90,23 @@ router.get("/refresh", async (req, res) => {
             return res.status(403).json({ message: "Refresh Token not valid" });
         }
 
-        jwt.verify(refreshToken, process.env.RTPrivateKey, (err,decoded) => {
-            if (err || user._id.toString() !== decoded.id){
-                return res.status(403).json({ message: "Refresh Token expired"}); 
-            }
+        const decoded = jwt.verify(refreshToken, process.env.RTPrivateKey); // Value or Undefined
 
-            const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "1h"});
+        if (user._id.toString() !== decoded.id) {
+            return res.status(403).json({ message: "Refresh Token mismatch" });
+        }
 
-            res.status(200).json({ accessToken: newAccessToken });
-        });
+        const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "20s"});
+
+        res.status(200).json({ accessToken: newAccessToken });
+
     }catch (error){
         res.status(500).json({ message: "Server error" });
         console.log(error.message)
     }
-});
+};
 
-module.exports = router;
+module.exports = {
+    login,
+    refreshToken
+};

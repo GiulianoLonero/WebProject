@@ -1,11 +1,7 @@
-const express = require("express");
-const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt")
-const verifyToken = require("../middleware/verifyToken");
 
-// GET Verify
-router.get("/verify", verifyToken, async (req,res) => {
+const verify = async (req,res) => {
     try{
         const user = await User.findById(req.user.id).select("-password -refreshToken");
 
@@ -13,13 +9,14 @@ router.get("/verify", verifyToken, async (req,res) => {
             return res.status(404).json({message: "Access denied"});
         }
         return res.status(200).json({message: "Access granted", userData: user})
-    }catch{
+    }catch(error){
+        console.error("Verification error:", error.message);
         return res.status(500).json({message: "Server error"});
     }
-});
+};
 
 // Create User
-router.post("/", async(req,res) => {
+const register = async(req,res) => {
     try{
         const userDatas = req.body;
         const salt = await bcrypt.genSalt(10);
@@ -40,6 +37,9 @@ router.post("/", async(req,res) => {
     } catch(error){
         res.status(400).json({message: "Error during creation", error: error.message});
     }
-});
+};
 
-module.exports = router;
+module.exports = {
+    verify,
+    register
+};

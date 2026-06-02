@@ -1,8 +1,6 @@
-const express = require("express")
-const router = express.Router();
 const Event = require("../models/Event");
 
-router.get("/", async (req, res)=>{
+const searchEvents = async (req, res)=>{
     try{
         const {genre, location, searchBar } = req.query;
         let filter = {}
@@ -18,7 +16,7 @@ router.get("/", async (req, res)=>{
         const foundEvents = await Event.find(filter)
 
         if((Object.keys(filter).length) === 0){
-            res.status(200).json({message: "No filter applied"})
+            return res.status(200).json({message: "No filter applied"})
         }
 
         res.status(200).json(foundEvents)
@@ -26,6 +24,6 @@ router.get("/", async (req, res)=>{
     }catch(error){
         res.status(500).json({message: "Server Error"});
     }
-})
+};
 
-module.exports = router
+module.exports = searchEvents
