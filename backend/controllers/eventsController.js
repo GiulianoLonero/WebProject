@@ -2,28 +2,39 @@ const Event = require("../models/Event");
 
 const searchEvents = async (req, res)=>{
     try{
-        const {genre, location, searchBar } = req.query;
+        const {genre, location, search } = req.query;
         let filter = {}
         if (genre) filter.genre = genre
         if (location) filter["position.city"] = location
-        if (searchBar && searchBar.trim() !== ""){
-            filter.$or = [
-                { title: {$regex: searchBar, $options:"i"}},
-                { artists: {$regex: searchBar, $options:"i"}}
-            ]
+        if (search && search.trim() !== ""){
+            filter.title = { title: {$regex: search, $options:"i"}}
         }
 
         const foundEvents = await Event.find(filter)
 
         if((Object.keys(filter).length) === 0){
-            return res.status(200).json({message: "No filter applied"})
+            const foundEvents = await Event.find({})
+            return res.status(200).json({message: "No filter applied", events: foundEvents})
         }
 
-        res.status(200).json(foundEvents)
+        return res.status(200).json({message: "Filters applied", events: foundEvents})
 
     }catch(error){
-        res.status(500).json({message: "Server Error"});
+        return res.status(500).json({message: "Server Error"});
     }
 };
 
-module.exports = searchEvents
+const allEvents = async (req, res)=>{
+    try{
+        const allFoundEvents = await Event.find({})
+        return res.status(200).json({message: "All events found", events: allFoundEvents})
+    }
+    catch(error){
+        return res.status(500).json({message: "Server error"})
+    }
+}
+
+module.exports = {
+    searchEvents,
+    allEvents
+}

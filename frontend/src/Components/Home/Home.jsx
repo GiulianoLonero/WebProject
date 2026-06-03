@@ -4,21 +4,24 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar"
 import { useState } from "react"
 import axios from "axios"
+import Flashcard from "../Flashcard/Flashcard";
 
 const Home = function(){
     const { user, isAuth} = useAuth();
     const navigate = useNavigate();
 
     const [searchParams] = useSearchParams();
-    const [events, setEvents] = useState([]) //qui metteremo tutti gli eventi
+    const [events, setEvents] = useState([]) 
+
+    //per mostrare tutte le flashcard
 
     useEffect(() => {
-        const filteredEvents = async () => {
+        const findEvents = async () => {
             try {
                 const genre = searchParams.get("genre")
                 const location = searchParams.get("location")
                 const search = searchParams.get("search")
-
+                if (genre || location || search){
                 const response = await axios.get("http://localhost:5000/api/v1/events", {
                     params: {
                         genre: genre,
@@ -26,17 +29,26 @@ const Home = function(){
                         search: search
                     }
                 });
-                setEvents(response.data)
+                setEvents(response.data.events)
+            } else {
+                const response = await axios.get("http://localhost:5000/api/v1/events/all-events")
+                setEvents(response.data.events)
+            }
             } catch (error){
                 console.error("Error during events research", error.message)
             };
         }
-        filteredEvents();
+        findEvents();
     }, [searchParams]);
 
     return( 
         <div>
             <Navbar />
+            {events?.map(event => (<Flashcard 
+            key = {event._id}
+            event = {event}
+            />
+            ))}
             {isAuth ? (
                 <div>
                     <h1>Pagina di utente loggato</h1>
