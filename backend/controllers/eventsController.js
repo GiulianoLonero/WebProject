@@ -7,7 +7,7 @@ const searchEvents = async (req, res)=>{
         if (genre) filter.genre = genre
         if (location) filter["position.city"] = location
         if (search && search.trim() !== ""){
-            filter.title = { title: {$regex: search, $options:"i"}}
+            filter.title = {$regex: search, $options:"i"}
         }
 
         const foundEvents = await Event.find(filter)
