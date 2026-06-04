@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar"
 import { useState } from "react"
 import axios from "axios"
 import Flashcard from "../Flashcard/Flashcard";
+import styles from "./Home.module.css"
 
 const Home = function(){
     const { user, isAuth} = useAuth();
@@ -42,23 +43,39 @@ const Home = function(){
     }, [searchParams]);
 
     return( 
-        <div>
+        <div className={styles.homeContainer}>
             <Navbar />
-            {events?.map(event => (<Flashcard 
-            key = {event._id}
-            event = {event}
-            />
-            ))}
-            {isAuth ? (
-                <div>
-                    <h1>Pagina di utente loggato</h1>
-                    <p>Sei loggato come: <b>{user?.mail}</b></p>
+
+            <div className={styles.mainContent}>
+
+                <div className={styles.headerSection}>
+                    {isAuth ? (
+                        <div>
+                            <h1>Pagina di utente loggato</h1>
+                            <p>Sei loggato come: <b>{user?.mail}</b></p>
+                        </div>
+                    ):(
+                        <div>
+                            <h1>Home principale</h1>
+                        </div>
+                    )}
                 </div>
-            ):(
-                <div>
-                    <h1>Home principale</h1>
+                <div className={styles.eventsGrid}>
+                    {events?.length > 0 ? (
+                        events.map(event => (
+                            <Flashcard 
+                                key={event._id}
+                                event={event}
+                            />
+                        ))
+                    ) : (
+                        <div className={styles.noEvents}>
+                            <p>Nessun evento trovato. Prova a cambiare i filtri!</p>
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
+
         </div>
     );
 }
