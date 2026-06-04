@@ -63,7 +63,8 @@ const login= async(req,res) => {
         const safeUserData = {
             name: user.name,
             lastName: user.lastName,
-            mail: user.mail
+            mail: user.mail,
+            role: user.role
         };
         
         res.status(200).json({message: "Successfully logged in!", accessToken: accessToken, userData: safeUserData})
@@ -76,7 +77,7 @@ const login= async(req,res) => {
 };
 
 // GET Refresh Token
-const refreshToken = async (req, res) => {
+const refreshAToken = async (req, res) => {
     try{
         const cookies = req.cookies;
         if (!cookies || !cookies.jwt){
@@ -98,7 +99,7 @@ const refreshToken = async (req, res) => {
 
         const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "20s"});
 
-        res.status(200).json({ accessToken: newAccessToken });
+        res.status(200).json({ accessToken: newAccessToken, user: user });
 
     }catch (error){
         res.status(500).json({ message: "Server error" });
@@ -108,5 +109,5 @@ const refreshToken = async (req, res) => {
 
 module.exports = {
     login,
-    refreshToken
+    refreshAToken
 };

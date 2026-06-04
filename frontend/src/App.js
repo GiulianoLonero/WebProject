@@ -4,9 +4,15 @@ import Home from "./Components/Home/Home";
 import { ReactRoute } from "./Components/ReactRouter";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from "./Components/Header/Header"
+import {useAuth} from "./hooks/useAuth"
 
 
 function App() {
+  const {isLoading} = useAuth();
+  if (isLoading) {
+        return <div>Caricamento in corso...</div>; 
+    }
+    
   return (
     <BrowserRouter>
       <Header />

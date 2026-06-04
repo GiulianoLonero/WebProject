@@ -35,14 +35,15 @@ const eventSchema = new mongoose.Schema({
     artists:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Artist",
-        required: true,
+        required: false,
         default: []
     }],
 
     genre:{
         type: String,
         required: false,
-        default: "Unknown"
+        default: "Unknown",
+        enum: ["music","cinema","theatre","Unknown"]
     },
     description:{
         type: String,
