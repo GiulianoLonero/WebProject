@@ -3,8 +3,8 @@ import {useAuth} from "../hooks/useAuth";
 import {Navigate} from "react-router-dom";
 
 export const ReactRoute = ({children}) =>{
-    const {isAuth} = useAuth();
-    if (!isAuth) {
+    const {isAuth, user} = useAuth();
+    if (!isAuth || user?.role !=="admin") {
         return <Navigate to="/" replace />; 
     }
     return children;
