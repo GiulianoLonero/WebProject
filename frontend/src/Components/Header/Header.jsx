@@ -5,28 +5,47 @@ import styles from "./Header.module.css"
 
 const Header = function(){
     const logo = "/Assets/favicon.ico"
-    const { isAuth, logout } = useAuth();
+    const { isAuth, logout, user } = useAuth();
     const navigate = useNavigate();
     const handleLogout = () => {
         logout();
     }        
-    return(
+    return (
         <div className={styles.Header}>
-           <img src={logo} alt="Icon"></img>
-            <h1 className={styles.title}>PoliTicket</h1>
-            {!isAuth ?(
-                <button type="button" className={styles.loginButton}  onClick={()=> navigate("/login")}>Login</button>
-            ):(
-                <button type="button" className={styles.logoutButton}  onClick={
-                    ()=> {
-                        handleLogout();
-                        navigate("/");
-                    }
-                }>Logout</button>
-            )}
-            
-        </div>
-    )
-}
+            <div className={styles.leftSection}>
+                <img src={logo} alt="Icon" className={styles.logo} />
+            </div>
 
-export default Header
+            <div className={styles.centerSection}>
+                <h1 className={styles.title}>PoliTicket</h1>
+            </div>
+            
+            <div className={styles.rightSection}>
+                {!isAuth ? (
+                    <button type="button" className={styles.loginButton} onClick={() => navigate("/login")}>
+                        Login
+                    </button>
+                ) : (
+                    <>
+                        {user?.role === "admin" && (
+                            <button 
+                                type="button" 
+                                className={styles.createEventButton} 
+                                onClick={() => navigate("/events/create")}
+                            >
+                                Crea Evento
+                            </button>
+                        )}
+                        <button type="button" className={styles.logoutButton} onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+};
+
+
+
+export default Header;

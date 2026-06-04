@@ -1,0 +1,21 @@
+/* 1. Resetta tutto lo spazio predefinito del browser */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Assicurati che body e html prendano il 100% dello schermo */
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #e4e7eb; /* Il colore di sfondo dei tuoi lati */
+}
+
+/* 3. IL VERO COLPEVOLE: Il contenitore di React! */
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}

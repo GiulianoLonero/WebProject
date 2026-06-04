@@ -1,0 +1,42 @@
+.homeContainer {
+  min-height: 100vh;
+  /* Lo sfondo grigio/azzurrognolo riempie tutta la pagina dietro */
+  background-color: #e4e7eb; 
+  padding-bottom: 4rem; 
+}
+
+/* QUESTO È IL FOGLIO BIANCO CENTRALE */
+.mainContent {
+  background-color: #ffffff;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1000px;
+  
+  /* Arrotonda solo in basso! In alto è piatto e tocca la Navbar */
+  border-radius: 0 0 24px 24px; 
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  
+  padding: 2rem 1rem 4rem 1rem;
+  min-height: 70vh; /* Fa in modo che il foglio bianco sia sempre abbastanza lungo */
+}
+
+.headerSection {
+  text-align: center;
+  color: #333;
+  margin-bottom: 3rem; /* Crea spazio prima che inizino le Flashcard */
+}
+
+/* La griglia ora si occupa solo di impilare le card */
+.eventsGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.noEvents {
+  text-align: center;
+  margin-top: 2rem;
+  color: #666;
+  font-weight: 500;
+}

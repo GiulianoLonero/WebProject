@@ -1,31 +1,79 @@
 .Header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    /* La magia: 1fr (frazione) a sinistra, "auto" in mezzo, 1fr a destra. Centratura assoluta! */
+    grid-template-columns: 1fr auto 1fr; 
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #f4f4f4;
+    background-color: #530000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* --- LE 3 SEZIONI --- */
+.leftSection {
+    display: flex;
+    justify-content: flex-start; /* Schiaccia il logo a sinistra */
+}
+
+.logo {
+    height: 40px; /* Aggiusta la grandezza del logo se serve */
+    width: auto;
+}
+
+.centerSection {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
 .title {
-    color: #333;
+    color: #d7d7d7;
     margin: 0;
 }
 
-.LoginButton, .LogoutButton {
+.rightSection {
+    display: flex;
+    justify-content: flex-end; /* Schiaccia i bottoni a destra */
+    gap: 15px; /* Spazio tra un bottone e l'altro */
+}
+
+/* --- I BOTTONI --- */
+.loginButton, .logoutButton, .createEventButton {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     border: none;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.2s ease;
+    
+    /* LA REGOLA PER RENDERLI IDENTICI: */
+    min-width: 80px;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-.LoginButton {
+.loginButton {
     background-color: #007bff;
     color: white;
 }
 
-.LogoutButton {
+.loginButton:hover {
+    background-color: #0056b3;
+}
+
+.logoutButton {
     background-color: #dc3545;
     color: white;
+}
+
+.logoutButton:hover {
+    background-color: #b02a37;
+}
+
+.createEventButton {
+    background-color: #28a745;
+    color: white;
+}
+
+.createEventButton:hover {
+    background-color: #1e7e34;
 }
