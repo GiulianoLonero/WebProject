@@ -9,6 +9,8 @@ const Header = function(){
     const navigate = useNavigate();
     const handleLogout = () => {
         logout();
+        navigate("/")
+
     }        
     return (
         <div className={styles.Header}>
@@ -31,7 +33,7 @@ const Header = function(){
                             <button 
                                 type="button" 
                                 className={styles.createEventButton} 
-                                onClick={() => navigate("/events/create")}
+                                onClick={() => navigate("/events/creation-event")}
                             >
                                 Crea Evento
                             </button>

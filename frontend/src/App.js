@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "./Components/LoginForm/LoginForm";
 import Home from "./Components/Home/Home";
-import { ProtRoute } from "./Components/ProtRouter";
+import { ProtRouter } from "./Components/ProtRouter";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./Components/Header/Header"
 import {useAuth} from "./hooks/useAuth"
@@ -20,9 +20,11 @@ function App() {
       <Routes>
         <Route path ="/login" element={<LoginForm/>}></Route>
         <Route path ="/" element={<Home/>}></Route>
-        <ProtRoute>
-          <Route path = "/events/create" element={<EventCreatePage/>}/>
-        </ProtRoute>
+        <Route path = "/events/creation-event" element={
+          <ProtRouter>
+            <EventCreatePage/>
+          </ProtRouter>}
+          />
       </Routes>
     </BrowserRouter>
   );

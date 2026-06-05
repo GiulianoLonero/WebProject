@@ -1,4 +1,5 @@
 const Event = require("../models/Event");
+const Artist = require("../models/Artist");
 
 const searchEvents = async (req, res)=>{
     try{
@@ -38,13 +39,30 @@ const createEvent = async (req,res)=>{
     try{
         const params = req.body;
         if(!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address ) return res.status(400).json({message:"Missing infos"})
+        const existingEvent = await Event.findOne({title: params.title})
+        if(existingEvent) return res.status(400).json({message:"Event already existing"})
+
+        const artists= []
+
+            if(params.artists && params.artists.length>0){
+                for (const artist of params.artists){
+                    const existingArtist = await Artist.findOne({name: artist.name})
+                    if (existingArtist) artists.push(existingArtist)
+                    else{
+                        const newArtist = await Artist.create({name: artist.name})
+                        artists.push(newArtist)
+                    }
+                }
+            }
+        
+        
 
         const newEvent = await Event.create({
             title: params.title,
             date: params.date,
             position: params.position,
             numberOfTickets: params.numberOfTickets,
-            artists: params.artists,
+            artists: artists,
             genre: params.genre,
             description: params.description,
             imgurl: params.imgurl
