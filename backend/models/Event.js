@@ -4,7 +4,8 @@ const eventSchema = new mongoose.Schema({
 
     title:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     date:{
@@ -50,7 +51,8 @@ const eventSchema = new mongoose.Schema({
         required: false
     },
     imgurl:{
-        type: String
+        type: String,
+        required: false
     }
 });
 
