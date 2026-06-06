@@ -48,7 +48,7 @@ const login= async(req,res) => {
         }
         
         // Token Generation
-        const accessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey, {expiresIn: "20s"});
+        const accessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey, {expiresIn: "10m"});
         const refreshToken = jwt.sign({id: user._id}, process.env.RTPrivateKey, {expiresIn: "7d"});
         user.refreshToken = refreshToken;
         await user.save();
@@ -86,7 +86,7 @@ const refreshAToken = async (req, res) => {
 
         const refreshToken = cookies.jwt;
             
-        const user = await User.findOne({ refreshToken: refreshToken });
+        const user = await User.findOne({ refreshToken: refreshToken }).select("-refreshToken -password");
         if (!user) {
             return res.status(403).json({ message: "Refresh Token not valid" });
         }
@@ -97,7 +97,7 @@ const refreshAToken = async (req, res) => {
             return res.status(403).json({ message: "Refresh Token mismatch" });
         }
 
-        const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "20s"});
+        const newAccessToken = jwt.sign({id: user._id}, process.env.ATPrivateKey,{expiresIn: "10m"});
 
         res.status(200).json({ accessToken: newAccessToken, user: user });
 

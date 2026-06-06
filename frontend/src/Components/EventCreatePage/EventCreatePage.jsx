@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./EventCreatePage.module.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth"
 
 const EventCreatePage = ()=>{
+    const {token} = useAuth()
     const [genre, setGenre] = useState("");
     const [title, setTitle]= useState("");
     const [address, setAddress]= useState("");
@@ -41,7 +43,10 @@ const EventCreatePage = ()=>{
                 imgurl: imgurl,
             },
             {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
         )
 
