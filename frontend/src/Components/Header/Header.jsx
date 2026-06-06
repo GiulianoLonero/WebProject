@@ -19,7 +19,7 @@ const Header = function(){
             </div>
 
             <div className={styles.centerSection}>
-                <h1 className={styles.title}>PoliTicket</h1>
+                <h1 className={styles.title} onClick={(e)=>navigate("/")}>PoliTicket</h1>
             </div>
             
             <div className={styles.rightSection}>

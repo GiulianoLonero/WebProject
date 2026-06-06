@@ -1,4 +1,5 @@
 import styles from "./Flashcard.module.css"
+import {useAuth} from "../../hooks/useAuth";
 
 const Flashcard = ({event}) =>{
     const imgurl = "/Assets/images/" + event.imgurl + ".jpg"

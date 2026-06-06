@@ -23,14 +23,11 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
 
-    shoppingList:[{
-        type: mongoose.Schema.ObjectId,
-        ref: "Ticket"
-    }],
-
-    ticketList:[{
-        type: mongoose.Schema.ObjectId,
-        ref: "Ticket"
+    savedEvents:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Event,
+        required:false,
+        default:[]
     }],
 
     failedLoginAttempts:{
