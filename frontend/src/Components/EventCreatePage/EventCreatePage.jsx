@@ -15,7 +15,7 @@ const EventCreatePage = ()=>{
     const [description, setDescription]=useState("");
     const [date, setDate] = useState("");
     const [artists, setArtists] = useState("");
-    const [numberOfTickets, setNumberOfTickets] = useState(0);
+    const [numberOfTickets, setNumberOfTickets] = useState();
     const [errorMessage, setErrorMessage] = useState();
     const navigate = useNavigate();
     

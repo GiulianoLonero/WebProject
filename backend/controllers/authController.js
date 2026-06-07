@@ -107,7 +107,21 @@ const refreshAToken = async (req, res) => {
     }
 };
 
+const logout = async (req,res)=>{
+    try{
+        res.clearCookie("jwt",{
+            httpOnly:true,
+            sameSite: "strict",
+            secure:false
+        })
+        return res.status(200).json({message: "Successful logout"})
+    }catch(error){
+        res.status(500).json({message: "Server error"})
+    }
+}
+
 module.exports = {
     login,
-    refreshAToken
+    refreshAToken,
+    logout
 };

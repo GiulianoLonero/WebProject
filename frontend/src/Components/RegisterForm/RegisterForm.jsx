@@ -37,7 +37,9 @@ const RegisterForm = () => {
 
     return (
         <div className={styles.div}>
+            
             <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+                <h1>Register</h1>
                 <input type="text" className={styles.name} value = {name} placeholder="Nome..." onChange={(e) => {setName(e.target.value)}}></input>
                 <input type="text" className={styles.lastName} value = {lastName} placeholder="Cognome..." onChange={(e) => {setLastName(e.target.value)}}></input>
                 <input type="text" className={styles.mail} value = {mail} placeholder="Email..." onChange={(e) => {setMail(e.target.value)}}></input>

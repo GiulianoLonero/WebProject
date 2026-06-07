@@ -34,8 +34,17 @@ export function AuthProvider({children}){
     }
 
     async function logout() {
-        setUser(null);
-        setToken(null)
+        try{
+            await axios.post("http://localhost:5000/api/v1/auth/logout",{},{
+                withCredentials: true
+            });
+        }catch (error){
+            console.error("Server error",error);
+        }finally{
+            setUser(null);
+            setToken(null)
+        }
+        
     }
 
     return (

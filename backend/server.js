@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const cors = require("cors"); //middleware per la gestione dei cookie che passano da frontend a backend
+const cors = require("cors");
 const router = require("./router")
 require("dotenv").config();
 

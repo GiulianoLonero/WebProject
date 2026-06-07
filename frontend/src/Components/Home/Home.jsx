@@ -52,7 +52,7 @@ const Home = function(){
                 <div className={styles.headerSection}>
                     {isAuth ? (
                         <div>
-                            <h1>Benvenuto, {user?.mail}</h1>
+                            <h1>Benvenuto, {user?.name}</h1>
                             <aside className={styles.aside}>
                                 <div className={styles.asideDiv}>
                                     <button type="button" onClick={(e)=>{navigate("/saved-events")}}>I tuoi salvati</button>
