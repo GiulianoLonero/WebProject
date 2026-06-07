@@ -1,5 +1,6 @@
 import React from "react";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import RegisterForm from "./Components/RegisterForm/RegisterForm"
 import Home from "./Components/Home/Home";
 import { ProtRouter } from "./Components/ProtRouter";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <Routes>
         <Route path ="/login" element={<LoginForm/>}></Route>
+        <Route path ="/registration" element={<RegisterForm/>}></Route>
         <Route path ="/" element={<Home/>}></Route>
         <Route path = "/events/creation-event" element={
           <ProtRouter>

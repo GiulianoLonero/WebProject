@@ -75,6 +75,7 @@ const LoginForm = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <button type="submit">Login</button>
+                <p className = "paragraph" onClick={()=>navigate("/registration")}>Registrati</p>
             </form>
         </div>
     );

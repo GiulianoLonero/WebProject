@@ -5,6 +5,6 @@ const { verify, register} = require("../controllers/usersController")
 
 router.get("/verify", verifyToken, verify);
 
-router.post("/", register);
+router.post("/register", register);
 
 module.exports = router;

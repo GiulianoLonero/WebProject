@@ -18,24 +18,34 @@ const verify = async (req,res) => {
 // Create User
 const register = async(req,res) => {
     try{
-        const userDatas = req.body;
+        const userData = req.body;
+        if (!userData.name || !userData.lastName || !userData.mail || !userData.password || !userData.confirmPassword)
+            return res.status(400).json({message: "Missing infos"})
+        if (userData.password !== userData.confirmPassword)
+            return res.status(400).json({message: "Password mismatch (aura)"})
+        const existingUser = await User.findOne({mail: userData.mail})
+        if (existingUser)
+            return res.status(400).json({message: "User already existing"})
         const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(userDatas.password, salt);
+        const hashedPass = await bcrypt.hash(userData.password, salt);
         
         const newUsers = new User({
-            name: userDatas.name,
-            lastName: userDatas.lastName,
-            mail: userDatas.mail,
+            name: userData.name,
+            lastName: userData.lastName,
+            mail: userData.mail,
             password: hashedPass,
-            shoppingList: null,
-            ticketList: null
         });
 
         const userSaved = await newUsers.save()
+        const userSavedWP = {
+            name: userSaved.name,
+            lastName: userSaved.lastName,
+            mail: userSaved.mail
+        } //WP=WITHOUT PASSWORD AHAHAHAHAHAHHA
 
-        res.status(201).json(userSaved);
+        res.status(201).json(userSavedWP);
     } catch(error){
-        res.status(400).json({message: "Error during creation", error: error.message});
+        res.status(500).json({message: "Error during creation", error: error.message});
     }
 };
 

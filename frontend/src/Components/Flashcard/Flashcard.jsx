@@ -1,6 +1,8 @@
+import React from "react"
 import styles from "./Flashcard.module.css"
 import {useAuth} from "../../hooks/useAuth";
 import axios from "axios"
+import {useState} from "react"
 
 const Flashcard = ({event}) =>{
     const {isAuth, token} = useAuth()
