@@ -12,6 +12,6 @@ router.get("/all-events", allEvents);
 // Protected routes
 router.post("/", verifyToken, verifyAdmin, createEvent);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteEvent);
+router.delete("/", verifyToken, verifyAdmin, deleteEvent);
 
 module.exports = router

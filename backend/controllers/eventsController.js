@@ -14,7 +14,6 @@ const searchEvents = async (req, res)=>{
         const foundEvents = await Event.find(filter)
 
         if((Object.keys(filter).length) === 0){
-            const foundEvents = await Event.find({})
             return res.status(200).json({message: "No filter applied", events: foundEvents})
         }
 
@@ -72,20 +71,22 @@ const createEvent = async (req,res)=>{
         
         
     }catch (error){
-        res.status(500).json({ message: "Errore interno del server", error: error.message });
+        return res.status(500).json({ message: "Server error", error: error.message });
     };
 };
 
 const deleteEvent = async (req,res)=>{
     try{
-        const eventId = req.params.id;
+        const eventId = req.body.id;
         const foundEvent = await Event.findByIdAndDelete(eventId);
         if(!foundEvent) return res.status(404).json({message:"Event not found"})
-        res.status(200).json({message:"Event eliminated", id: eventId})
+        return res.status(200).json({message:"Event eliminated", id: eventId})
     } catch (error) {
-        res.status(500).json({ message: "Errore interno del server", error: error.message });
+        return res.status(500).json({ message: "Server error", error: error.message });
     };
 }
+
+
 
 module.exports = {
     searchEvents,

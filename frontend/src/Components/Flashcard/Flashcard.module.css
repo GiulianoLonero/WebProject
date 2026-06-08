@@ -113,3 +113,83 @@
   margin: 0;
   color: #ff9900; /* Un tocco di arancione/giallo per far risaltare i dati */
 }
+
+/* --- BOTTONE DELETE (X) IN ALTO A DESTRA --- */
+.delButton {
+  position: absolute;
+  top: 15px;      /* Distanza dal margine superiore */
+  right: 15px;    /* Distanza dal margine destro */
+  z-index: 10;    /* Deve stare sopra l'overlay e sopra il testo */
+  
+  /* Forma e colori */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* Lo rende un cerchio perfetto */
+  background-color: #ff4757; /* Rosso corallo acceso */
+  color: white;
+  border: none;
+  
+  /* Centratura perfetta della X */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif; /* Un font pulito per la X */
+  
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Ombreggiatura per staccarlo dallo sfondo */
+  
+  /* Animazione fluida */
+  transition: all 0.2s ease;
+}
+
+/* Effetto al passaggio del mouse */
+.delButton:hover {
+  background-color: #ff6b81; /* Rosso leggermente più chiaro */
+  transform: scale(1.15);    /* Si ingrandisce un pochino */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Effetto quando lo clicchi */
+.delButton:active {
+  transform: scale(0.95); /* Si schiaccia */
+}
+
+/* --- BOTTONE SALVA EVENTO --- */
+.saveButton {
+  position: absolute;
+  bottom: 20px;       /* Distanza dal fondo della card */
+  left: 50%;          /* Lo sposta al centro... */
+  transform: translateX(-50%); /* ...e lo centra perfettamente! */
+  z-index: 10;        /* Fondamentale: deve stare sopra l'overlay scuro */
+  
+  /* Stile "Pillola" moderna */
+  padding: 12px 24px;
+  border-radius: 30px; 
+  background-color: #ffffff; /* Bianco per contrastare lo sfondo scuro */
+  color: #333333;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  
+  /* Ombra per farlo "galleggiare" */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+/* Effetto al passaggio del mouse */
+.saveButton:hover {
+  background-color: #f8f9fa;
+  color: #ff4757; /* Il testo diventa rosso corallo al passaggio */
+  /* Mantiene il centraggio (translateX) e aggiunge l'ingrandimento (scale) */
+  transform: translateX(-50%) scale(1.05); 
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Effetto click */
+.saveButton:active {
+  transform: translateX(-50%) scale(0.95);
+}

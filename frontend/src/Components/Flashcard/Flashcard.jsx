@@ -3,16 +3,47 @@ import styles from "./Flashcard.module.css"
 import {useAuth} from "../../hooks/useAuth";
 import axios from "axios"
 import {useState} from "react"
+import {useNavigate} from "react-router-dom"
 
 const Flashcard = ({event}) =>{
-    const {isAuth, token} = useAuth()
-    const [errorMessage, setErrorMessage] = useState();
+    const {isAuth, token, user} = useAuth()
+    const [errorMessage, setErrorMessage] = useState("");
     const imgurl = "/Assets/images/" + event.imgurl + ".jpg"
     const date = new Date(event.date).toLocaleDateString("it-IT")
+    const navigate = useNavigate();
+
+    const handleDeleteEvent = async (e)=>{
+        e.preventDefault();
+        const userConfirmed = window.confirm(`Sei sicuro di voler eliminare l'evento "${event.title}"? Questa azione è irreversibile.`);
+        
+        if (!userConfirmed) {
+            return; 
+        }
+        try{
+            const response = await axios.delete("http://localhost:5000/api/v1/events/",{
+                data:{
+                    id: event._id
+                },
+                withCredentials:true,
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            window.location.reload()
+         }catch(error){
+            if(error.response){
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage("Server error")
+            }
+        }
+        
+    }
+
 
     const handleSaveEvent = async (e) => {
         e.preventDefault();
-        setErrorMessage("");
         try{
             const response = await axios.put("http://localhost:5000/api/v1/users", {
                 title: event.title
@@ -24,6 +55,7 @@ const Flashcard = ({event}) =>{
                 }
             }
         )
+
         }catch(error){
             if(error.response){
                 setErrorMessage(error.response.data.message)
@@ -41,8 +73,11 @@ const Flashcard = ({event}) =>{
                 </div>
                 <div className={styles.FlashcardBack}>
                     {isAuth && (
-                        <button type="button" onClick = {(e) => handleSaveEvent(e)}>Salva evento</button>)
+                        <button className={styles.saveButton} type="button" onClick = {(e) => handleSaveEvent(e)}>Salva evento</button>)
                     }
+                    {user?.role==="admin" && (
+                        <button className={styles.delButton} type="button" onClick = {(e)=>handleDeleteEvent(e)}>X</button>
+                    )}
                     <img src={imgurl} alt="flashcard img" className={styles.imageBack}></img>
                     <div className={styles.overlay}></div>
                     <div className={styles.textContent}>
