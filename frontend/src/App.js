@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./Components/Header/Header"
 import {useAuth} from "./hooks/useAuth"
 import EventCreatePage from "./Components/EventCreatePage/EventCreatePage";
-import { EventProvider } from "./Context/EventContext"
 
 
 function App() {
@@ -22,12 +21,10 @@ function App() {
       <Routes>
         <Route path ="/login" element={<LoginForm/>}></Route>
         <Route path ="/registration" element={<RegisterForm/>}></Route>
-        <Route path ="/" element={<EventProvider><Home/></EventProvider>}></Route>
+        <Route path ="/" element={<Home/>}></Route>
         <Route path ="/editing-page" element={
           <ProtRouter>
-            <EventProvider>
-              <EventCreatePage/>
-            </EventProvider>  
+            <EventCreatePage/> 
           </ProtRouter>}>
           </Route>
         <Route path = "/events/creation-event" element={

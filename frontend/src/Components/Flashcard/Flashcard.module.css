@@ -1,41 +1,35 @@
-/* 1. Il Contenitore Esterno (La telecamera 3D) */
 .FlashcardContainer {
   background-color: transparent;
-  width: 320px; /* Larghezza della card */
-  height: 450px; /* Altezza della card */
-  perspective: 1000px; /* Dà il senso di profondità 3D */
+  width: 320px;
+  height: 450px;
+  perspective: 1000px;
   margin: 15px;
   cursor: pointer;
 }
 
-/* 2. L'involucro che ruota */
 .FlashcardInner {
   position: relative;
   width: 100%;
   height: 100%;
   text-align: center;
-  /* L'animazione fluida che dura 0.8 secondi */
   transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
   transform-style: preserve-3d;
 }
 
-/* 3. L'effetto magico: quando passi col mouse sul Container, l'Inner ruota */
 .FlashcardContainer:hover .FlashcardInner {
   transform: rotateY(180deg);
 }
 
-/* 4. Regole comuni per Fronte e Retro */
 .FlashcardFront, .FlashcardBack {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden; /* Nasconde il lato non inquadrato */
-  border-radius: 15px; /* Bordi arrotondati morbidi */
-  overflow: hidden; /* Impedisce alle immagini di uscire dai bordi */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25); /* Ombreggiatura base */
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
 }
 
-/* --- FRONTE --- */
 .FlashcardFront {
   background-color: #fff;
 }
@@ -43,19 +37,17 @@
 .imageFront {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Taglia e centra l'immagine perfettamente */
+  object-fit: cover;
 }
 
-/* --- RETRO --- */
-/* --- RETRO --- */
 .FlashcardBack {
   background-color: #111;
-  transform: rotateY(180deg); /* Questo lato parte già girato! */
+  transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative; /* Assicura che gli elementi assoluti interni si allineino qui */
+  position: relative;
 }
 
 .imageBack {
@@ -65,26 +57,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1; /* Livello più basso */
-  filter: blur(12px); /* Rende l'immagine sfocata */
-  transform: scale(1.1); /* Ingrandisce l'immagine del 10% per evitare che la sfocatura mostri i bordi bianchi sui lati */
+  z-index: 1;
+  filter: blur(12px);
+  transform: scale(1.1);
 }
 
-/* Lo shading: uno strato scuro semitrasparente */
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.40); /* 80% di nero */
-  z-index: 2; /* Livello intermedio */
+  background-color: rgba(0, 0, 0, 0.40);
+  z-index: 2;
 }
 
-/* Contenitore dei testi */
 .textContent {
   position: relative;
-  z-index: 3; /* Livello più alto, deve stare sopra tutto */
+  z-index: 3;
   padding: 25px;
   color: white;
   display: flex;
@@ -92,7 +82,6 @@
   gap: 12px;
 }
 
-/* --- STILI PER I TESTI --- */
 .FlashcardTitle {
   font-size: 1.6rem;
   font-weight: 800;
@@ -111,126 +100,100 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
-  color: #ff9900; /* Un tocco di arancione/giallo per far risaltare i dati */
+  color: #ff9900;
 }
 
 .delButton {
   position: absolute;
-  top: 15px;      /* Distanza dal margine superiore */
-  right: 15px;    /* Distanza dal margine destro */
-  z-index: 10;    /* Deve stare sopra l'overlay e sopra il testo */
-  
-  /* Forma e colori */
+  top: 15px;
+  right: 15px;
+  z-index: 10;
   width: 32px;
   height: 32px;
-  border-radius: 50%; /* Lo rende un cerchio perfetto */
-  background-color: #ff4757; /* Rosso corallo acceso */
+  border-radius: 50%;
+  background-color: #ff4757;
   color: white;
   border: none;
-  
-  /* Centratura perfetta della X */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   font-weight: bold;
-  font-family: Arial, sans-serif; /* Un font pulito per la X */
-  
+  font-family: Arial, sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Ombreggiatura per staccarlo dallo sfondo */
-  
-  /* Animazione fluida */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
 }
 
-/* Effetto al passaggio del mouse */
 .delButton:hover {
-  background-color: #ff6b81; /* Rosso leggermente più chiaro */
-  transform: scale(1.15);    /* Si ingrandisce un pochino */
+  background-color: #ff6b81;
+  transform: scale(1.15);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Effetto quando lo clicchi */
 .delButton:active {
-  transform: scale(0.95); /* Si schiaccia */
+  transform: scale(0.95);
 }
 
-/* --- BOTTONE SALVA EVENTO --- */
 .saveButton {
   position: absolute;
-  bottom: 20px;       /* Distanza dal fondo della card */
-  left: 50%;          /* Lo sposta al centro... */
-  transform: translateX(-50%); /* ...e lo centra perfettamente! */
-  z-index: 10;        /* Fondamentale: deve stare sopra l'overlay scuro */
-  
-  /* Stile "Pillola" moderna */
-  padding: 12px 24px;
-  border-radius: 30px; 
-  background-color: #ffffff; /* Bianco per contrastare lo sfondo scuro */
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #ffffff;
   color: #333333;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   font-family: inherit;
   border: none;
   cursor: pointer;
-  
-  /* Ombra per farlo "galleggiare" */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 
-/* Effetto al passaggio del mouse */
+.FlashcardBack:has(.modButton) .saveButton {
+  left: calc(50% - 65px);
+}
+
 .saveButton:hover {
   background-color: #f8f9fa;
-  color: #ff4757; /* Il testo diventa rosso corallo al passaggio */
-  /* Mantiene il centraggio (translateX) e aggiunge l'ingrandimento (scale) */
-  transform: translateX(-50%) scale(1.05); 
+  color: #ff4757;
+  transform: translateX(-50%) translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Effetto click */
 .saveButton:active {
-  transform: translateX(-50%) scale(0.95);
+  transform: translateX(-50%) translateY(1px);
 }
 
-/* --- BOTTONE MODIFICA (EDIT) IN ALTO A DESTRA, ACCANTO AL DEL --- */
 .modButton {
   position: absolute;
-  top: 15px;      /* Stessa altezza del delButton */
-  right: 55px;    /* Calcolato per stare perfettamente a sinistra del delButton (15 + 32 + 8) */
-  z-index: 10;    /* Stesso livello per galleggiare sopra tutto */
-  
-  /* Forma e dimensioni identiche */
-  width: 32px;
-  height: 32px;
-  border-radius: 50%; /* Cerchio perfetto */
-  background-color: #ff9900; /* Arancione coordinato con i testi per differenziarlo dal delete */
-  color: white;
+  bottom: 20px;
+  left: calc(50% + 65px);
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #333333;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
   border: none;
-  
-  /* Centratura perfetta del testo o icona interna */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px; /* Un pelo più piccolo per far stare meglio una scritta tipo "M" o un'icona */
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  
-  /* Animazione fluida identica */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 
-/* Effetto al passaggio del mouse identico */
 .modButton:hover {
-  background-color: #ffb33b; /* Arancione leggermente più chiaro */
-  transform: scale(1.15);    /* Si ingrandisce un pochino */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  background-color: #555555;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Effetto click identico */
 .modButton:active {
-  transform: scale(0.95); /* Si schiaccia */
+  transform: translateX(-50%) translateY(1px);
 }

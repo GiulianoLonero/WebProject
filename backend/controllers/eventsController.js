@@ -5,13 +5,14 @@ const searchEvents = async (req, res)=>{
     try{
         const {genre, location, search } = req.query;
         let filter = {}
+        
         if (genre) filter.genre = genre
         if (location) filter["position.city"] = location
         if (search && search.trim() !== ""){
             filter.title = {$regex: search, $options:"i"}
         }
 
-        const foundEvents = await Event.find(filter)
+        const foundEvents = await Event.find(filter).populate("artists");
 
         if((Object.keys(filter).length) === 0){
             return res.status(200).json({message: "No filter applied", events: foundEvents})
@@ -26,7 +27,7 @@ const searchEvents = async (req, res)=>{
 
 const allEvents = async (req, res)=>{
     try{
-        const allFoundEvents = await Event.find({})
+        const allFoundEvents = await Event.find({}).populate("artists");
         return res.status(200).json({message: "All events found", events: allFoundEvents})
     }
     catch(error){
@@ -86,11 +87,53 @@ const deleteEvent = async (req,res)=>{
     };
 }
 
+const editEvent = async (req, res) => {
+    try {
+        const params = req.body;
+        const artists = [];
+        
+        if (params.artists && params.artists.length > 0) {
+            for (const artist of params.artists) {
+                const existingArtist = await Artist.findOne({ name: artist.name });
+                if (existingArtist) {
+                    artists.push(existingArtist);
+                } else {
+                    const newArtist = await Artist.create({ name: artist.name });
+                    artists.push(newArtist);
+                }
+            }
+        }
 
+        const updatedEvent = await Event.findByIdAndUpdate(
+            params.id, 
+            {
+                title: params.title,
+                description: params.description,
+                date: params.date,
+                position: params.position,
+                genre: params.genre,
+                artists: artists,
+                numberOfTickets: params.numberOfTickets,
+                imgurl: params.imgurl
+            }, 
+            { new: true }
+        );
+
+        if (!updatedEvent) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
+        return res.status(200).json({ message: "Event edited", event: updatedEvent });
+
+    }catch (error) {
+        return res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
 
 module.exports = {
     searchEvents,
     allEvents,
     createEvent,
-    deleteEvent
+    deleteEvent,
+    editEvent
 }

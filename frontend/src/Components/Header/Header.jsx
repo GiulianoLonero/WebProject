@@ -2,8 +2,10 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth"
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css"
+import { useEvent } from "../../hooks/useEvent";
 
 const Header = function(){
+    const {resetEvent} = useEvent();
     const logo = "/Assets/favicon.ico"
     const { isAuth, logout, user } = useAuth();
     const navigate = useNavigate();
@@ -33,7 +35,10 @@ const Header = function(){
                             <button 
                                 type="button" 
                                 className={styles.createEventButton} 
-                                onClick={() => navigate("/events/creation-event")}
+                                onClick={() => {
+                                    resetEvent();
+                                    navigate("/events/creation-event")
+                                }}
                             >
                                 Crea Evento
                             </button>

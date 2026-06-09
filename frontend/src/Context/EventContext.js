@@ -3,7 +3,7 @@ import {createContext, useState, useEffect} from "react";
 export const EventContext = createContext()
 
 export function EventProvider({children}){
-    const [currentEvent, setCurrentEvent] = useState([])
+    const [currentEvent, setCurrentEvent] = useState(null)
 
     function passEvent(currentEvent){
         setCurrentEvent(currentEvent)
