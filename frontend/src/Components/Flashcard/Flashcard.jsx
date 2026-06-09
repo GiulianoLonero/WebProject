@@ -4,6 +4,7 @@ import {useAuth} from "../../hooks/useAuth";
 import axios from "axios"
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
+import {useEvent} from "../../hooks/useEvent"
 
 const Flashcard = ({event}) =>{
     const {isAuth, token, user} = useAuth()
@@ -11,6 +12,7 @@ const Flashcard = ({event}) =>{
     const imgurl = "/Assets/images/" + event.imgurl + ".jpg"
     const date = new Date(event.date).toLocaleDateString("it-IT")
     const navigate = useNavigate();
+    const {currentEvent, passEvent} = useEvent()
 
     const handleDeleteEvent = async (e)=>{
         e.preventDefault();
@@ -64,6 +66,12 @@ const Flashcard = ({event}) =>{
             }
         }
     }
+    
+    const handleEditEvent = (e) => {
+        e.preventDefault();
+        passEvent(event);
+        navigate("/editing-page")
+    }
 
     return(
         <div className={styles.FlashcardContainer}>
@@ -76,7 +84,10 @@ const Flashcard = ({event}) =>{
                         <button className={styles.saveButton} type="button" onClick = {(e) => handleSaveEvent(e)}>Salva evento</button>)
                     }
                     {user?.role==="admin" && (
-                        <button className={styles.delButton} type="button" onClick = {(e)=>handleDeleteEvent(e)}>X</button>
+                        <>
+                            <button className={styles.delButton} type="button" onClick = {(e) => handleDeleteEvent(e)}>X</button>
+                            <button className={styles.modButton} type="button" onClick = {(e) => handleEditEvent(e)}>Modifica</button>
+                        </>  
                     )}
                     <img src={imgurl} alt="flashcard img" className={styles.imageBack}></img>
                     <div className={styles.overlay}></div>

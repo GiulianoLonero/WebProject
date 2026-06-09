@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import styles from "./EventCreatePage.module.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth"
+import { useAuth } from "../../hooks/useAuth";
+import { useEvent } from "../../hooks/useEvent";
+import { useEffect } from "react";
+
 
 const EventCreatePage = ()=>{
-    const {token} = useAuth()
+    const {token} = useAuth();
+    const {currentEvent, resetEvent} = useEvent();
     const [genre, setGenre] = useState("");
     const [title, setTitle]= useState("");
     const [address, setAddress]= useState("");
@@ -18,17 +22,9 @@ const EventCreatePage = ()=>{
     const [numberOfTickets, setNumberOfTickets] = useState();
     const [errorMessage, setErrorMessage] = useState();
     const navigate = useNavigate();
-    
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        setErrorMessage("")
-
-        const arrayArtists = artists.split(",").map((artist)=>{
-            return {name: artist.trim()}
-        })
-        const filteredArtists = arrayArtists.filter(artist=>artist.name!=="");
-        try{
-            const response = await axios.post("http://localhost:5000/api/v1/events/",{
+    let artistsString = "";
+    let filteredArtists = [];
+    let eventParams = {
                 title: title,
                 date: date,
                 position:{
@@ -41,17 +37,53 @@ const EventCreatePage = ()=>{
                 genre:genre,
                 description: description,
                 imgurl: imgurl,
-            },
+            }
+    useEffect(() => {
+        if (currentEvent){
+            setTitle(currentEvent.title)
+            setGenre(currentEvent.genre)
+            setAddress(currentEvent.address)
+            setCity(currentEvent.city)
+            setName(currentEvent.name)
+            setImgurl(currentEvent.imgurl)
+            setDescription(currentEvent.description)
+            setDate(currentEvent.date)
+            currentEvent.artists.forEach((artist) => {
+                artistsString = artist.name + ","
+            })
+            setArtists(artistsString)
+            setNumberOfTickets(currentEvent.numberOfTickets)
+        }
+    },[])
+    
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        setErrorMessage("")
+        const arrayArtists = artists.split(",").map((artist)=>{
+            return {name: artist.trim()}
+        })
+        filteredArtists = arrayArtists.filter(artist=>artist.name!=="");
+        try{
+            if (!currentEvent){
+                const response = await axios.post("http://localhost:5000/api/v1/events/",{eventParams},
             {
                 withCredentials: true,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }
-        )
+        )}
+        else {
+                const response = await axios.put("http://localhost:5000/api/v1/events/",{eventParams},
+            {
+                withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )}
 
         navigate("/")
-        
             
         }catch(error){
             if(error.response){
@@ -88,7 +120,8 @@ const EventCreatePage = ()=>{
                         <option value="theatre">Teatro</option>
                     </select>
                     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                    <button type="submit" className={styles.button}>Crea evento</button>
+                    
+                    <button type="submit" className={styles.button}>{currentEvent? "Modifica evento" : "Crea evento"}</button>
                 </form>
             </div>
         </div>

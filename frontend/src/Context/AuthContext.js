@@ -27,7 +27,7 @@ export function AuthProvider({children}){
         checkLogged();
     },[])
     
-    async function login(userData,accessToken) {
+    function login(userData,accessToken) {
         setUser(userData);
         setToken(accessToken);
         console.log("Updated login context")
