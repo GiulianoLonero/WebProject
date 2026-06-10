@@ -47,8 +47,9 @@ const Flashcard = ({event}) =>{
     const handleSaveEvent = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.put("http://localhost:5000/api/v1/users", {
-                title: event.title
+            const response = await axios.put("http://localhost:5000/api/v1/events", {
+                eventId: event._id,
+                userId: user._id
             },
             {
                 withCredentials: true,
@@ -95,7 +96,7 @@ const Flashcard = ({event}) =>{
                         <p className={styles.FlashcardTitle}>{event.title}</p>
                         <p className={styles.FlashcardDesc}>{event.description}</p>
                         <p className={styles.FlashcardDate}>{date}</p>
-                        <p className={styles.FlashcardLoc}>{event.position.city}</p>
+                        <p className={styles.FlashcardLoc}>{event.position?.city}</p>
                     </div>
                 </div>
             </div>

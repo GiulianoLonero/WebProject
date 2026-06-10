@@ -55,7 +55,7 @@ const Home = function(){
                             <h1>Benvenuto, {user?.name}</h1>
                             <aside className={styles.aside}>
                                 <div className={styles.asideDiv}>
-                                    <button type="button" onClick={(e)=>{navigate("/saved-events")}}>I tuoi salvati</button>
+                                    <button type="button" onClick={(e)=>{navigate("/events/saved-events")}}>I tuoi salvati</button>
                                 </div>
                             </aside>
                         </div>

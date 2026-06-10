@@ -1,0 +1,56 @@
+/* 1. Il Contenitore della Pagina */
+.eventsContainer {
+    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header */
+    background-color: #e4e7eb; /* Stesso sfondo grigio chiaro della Home e del Login */
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. La Griglia Responsiva per le Flashcard */
+.eventsGrid {
+    display: grid;
+    /* Crea colonne da 320px (la misura esatta della tua card) finché c'è spazio sullo schermo */
+    grid-template-columns: repeat(auto-fill, 320px); 
+    justify-content: center; /* Centra la griglia nella pagina */
+    gap: 30px; /* Spazio uniforme (orizzontale e verticale) tra le card */
+    width: 100%;
+    max-width: 1200px; /* Evita che su schermi giganti le card si disperdano troppo */
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+/* 3. Il Box di "Nessun evento salvato" (Stile Card Bianca pulita) */
+.noEvents {
+    background-color: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 24px; /* Stessi angoli della card di login */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06); /* Ombra morbida coordinata */
+    text-align: center;
+    max-width: 450px;
+    width: 100%;
+    margin-top: 4rem; /* Lo stacca un po' dall'alto */
+    box-sizing: border-box;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.noEvents p {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* 4. Animazione di comparsa soft per il messaggio di vuoto */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./Components/Header/Header"
 import {useAuth} from "./hooks/useAuth"
 import EventCreatePage from "./Components/EventCreatePage/EventCreatePage";
+import SavedEventsPage from "./Components/SavedEventsPage/SavedEventsPage"
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path ="/login" element={<LoginForm/>}></Route>
         <Route path ="/registration" element={<RegisterForm/>}></Route>
         <Route path ="/" element={<Home/>}></Route>
+        <Route path ="/events/saved-events" element={<SavedEventsPage/>}></Route>
         <Route path ="/editing-page" element={
           <ProtRouter>
             <EventCreatePage/> 

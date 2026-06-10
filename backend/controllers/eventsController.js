@@ -1,5 +1,6 @@
 const Event = require("../models/Event");
 const Artist = require("../models/Artist");
+const User = require("../models/User")
 
 const searchEvents = async (req, res)=>{
     try{
@@ -42,7 +43,7 @@ const createEvent = async (req,res)=>{
         const existingEvent = await Event.findOne({title: params.title})
         if(existingEvent) return res.status(400).json({message:"Event already existing"})
 
-        const artists= []
+        const artists = []
 
             if(params.artists && params.artists.length>0){
                 for (const artist of params.artists){
@@ -116,7 +117,7 @@ const editEvent = async (req, res) => {
                 numberOfTickets: params.numberOfTickets,
                 imgurl: params.imgurl
             }, 
-            { new: true }
+            { returnDocument: "after" }
         );
 
         if (!updatedEvent) {
@@ -130,10 +131,27 @@ const editEvent = async (req, res) => {
     }
 }
 
+const saveEvent = async (req,res) => {
+    try {
+        const eventId = req.body.eventId
+        const userId = req.body.userId
+        const foundEvent = await Event.findById(eventId)
+        if (!foundEvent) return res.status(404).json({message: "Event not found"})
+        const updatedUser = await User.findByIdAndUpdate(userId, {
+        $addToSet: {savedEvents: eventId}}, //fills user's savedEvents array
+        { returnDocument: "after" }).populate("savedEvents")
+        if (!updatedUser) return res.status(404).json({message: "User not found"})
+        return res.status(200).json({message: "Event saved", savedEvents: updatedUser.savedEvents}) //frontend receives user's savedEvents array
+    }catch (error){
+        return res.status(500).json({message: "Server error"})
+    }
+}
+
 module.exports = {
     searchEvents,
     allEvents,
     createEvent,
     deleteEvent,
-    editEvent
+    editEvent,
+    saveEvent
 }
