@@ -15,7 +15,7 @@ const login= async(req,res) => {
             return res.status(400).json({message: "Invalid input type"})
 
         // User control
-        const user = await User.findOne({mail: mail});
+        const user = await User.findOne({mail: mail}).populate("savedEvents");
         
         if (!user){
             return res.status(400).json({message: "Email or Password not correct!"});
@@ -64,7 +64,8 @@ const login= async(req,res) => {
             name: user.name,
             lastName: user.lastName,
             mail: user.mail,
-            role: user.role
+            role: user.role,
+            savedEvents: user.savedEvents
         };
         
         res.status(200).json({message: "Successfully logged in!", accessToken: accessToken, userData: safeUserData})
@@ -80,18 +81,18 @@ const login= async(req,res) => {
 const refreshAToken = async (req, res) => {
     try{
         const cookies = req.cookies;
-        if (!cookies || !cookies.jwt){
+        if (!cookies || !cookies.jwt){ //cookies.jwt is the token
             return res.status(401).json({message: "No Refresh Token found"});
         }
 
         const refreshToken = cookies.jwt;
             
-        const user = await User.findOne({ refreshToken: refreshToken }).select("-refreshToken -password");
+        const user = await User.findOne({ refreshToken: refreshToken }).populate("savedEvents").select("-refreshToken -password");
         if (!user) {
             return res.status(403).json({ message: "Refresh Token not valid" });
         }
 
-        const decoded = jwt.verify(refreshToken, process.env.RTPrivateKey); // Value or Undefined
+        const decoded = jwt.verify(refreshToken, process.env.RTPrivateKey); // Value or Undefined: contains user's data
 
         if (user._id.toString() !== decoded.id) {
             return res.status(403).json({ message: "Refresh Token mismatch" });
@@ -110,9 +111,9 @@ const refreshAToken = async (req, res) => {
 const logout = async (req,res)=>{
     try{
         res.clearCookie("jwt",{
-            httpOnly:true,
+            httpOnly: true,
             sameSite: "strict",
-            secure:false
+            secure: false
         })
         return res.status(200).json({message: "Successful logout"})
     }catch(error){
