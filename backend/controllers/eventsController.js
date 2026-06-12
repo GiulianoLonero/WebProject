@@ -131,21 +131,31 @@ const editEvent = async (req, res) => {
     }
 }
 
-const saveEvent = async (req,res) => {
+const saveEvent = async (req, res) => {
     try {
-        const eventId = req.body.eventId
-        const userId = req.body.userId
-        const foundEvent = await Event.findById(eventId)
-        if (!foundEvent) return res.status(404).json({message: "Event not found"})
-        const updatedUser = await User.findByIdAndUpdate(userId, {
-        $addToSet: {savedEvents: eventId}}, //fills user's savedEvents array
-        { returnDocument: "after" }).populate("savedEvents")
-        if (!updatedUser) return res.status(404).json({message: "User not found"})
-        return res.status(200).json({message: "Event saved",savedEvents: updatedUser.savedEvents})
-    }catch (error){
-        return res.status(500).json({message: "Server error"})
+        const eventId = req.body.eventId;
+        // Prefer authenticated user from token (set by verifyToken)
+        const userId = req.user?.id;
+
+        if (!eventId) return res.status(400).json({ message: "Missing eventId" });
+        if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
+        const foundEvent = await Event.findById(eventId);
+        if (!foundEvent) return res.status(404).json({ message: "Event not found" });
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $addToSet: { savedEvents: eventId } },
+            { returnDocument: "after" }
+        ).populate("savedEvents");
+
+        if (!updatedUser) return res.status(404).json({ message: "User not found" });
+
+        return res.status(200).json({ message: "Event saved", savedEvents: updatedUser.savedEvents });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error", error: error.message });
     }
-}
+};
 
 module.exports = {
     searchEvents,
