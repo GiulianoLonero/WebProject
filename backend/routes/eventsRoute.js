@@ -9,7 +9,7 @@ router.get("/", searchEvents);
 
 router.get("/all-events", allEvents);
 
-router.put("/", verifyToken, saveEvent);
+router.put("/saved-events", verifyToken, saveEvent);
 
 // Protected routes
 router.post("/", verifyToken, verifyAdmin, createEvent);

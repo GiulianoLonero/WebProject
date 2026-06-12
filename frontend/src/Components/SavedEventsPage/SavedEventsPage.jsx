@@ -3,10 +3,11 @@ import styles from "./SavedEventsPage.module.css";
 import {useAuth} from "../../hooks/useAuth";
 import {Navigate} from "react-router-dom"
 import Flashcard from "../Flashcard/Flashcard";
+import { useEvent } from "../../hooks/useEvent";
 
 const SavedEventsPage = () => {
     const {user, isAuth} = useAuth();
-    const savedEvents = user?.savedEvents || [];
+    const {savedEvents} = useEvent();
 
     if (!isAuth){
         return <Navigate to = "/registration" replace/>;
@@ -19,6 +20,7 @@ const SavedEventsPage = () => {
                         <Flashcard 
                         key = {event._id}
                         event = {event}
+                        savedPage={true}
                         />
                     ))
                     ) : (<div className = {styles.noEvents}>

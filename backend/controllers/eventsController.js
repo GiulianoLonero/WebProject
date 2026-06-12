@@ -141,7 +141,7 @@ const saveEvent = async (req,res) => {
         $addToSet: {savedEvents: eventId}}, //fills user's savedEvents array
         { returnDocument: "after" }).populate("savedEvents")
         if (!updatedUser) return res.status(404).json({message: "User not found"})
-        return res.status(200).json({message: "Event saved", savedEvents: updatedUser.savedEvents}) //frontend receives user's savedEvents array
+        return res.status(200).json({message: "Event saved",savedEvents: updatedUser.savedEvents})
     }catch (error){
         return res.status(500).json({message: "Server error"})
     }

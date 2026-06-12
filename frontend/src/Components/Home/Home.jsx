@@ -71,6 +71,7 @@ const Home = function(){
                             <Flashcard 
                                 key={event._id}
                                 event={event}
+                                savedPage={false}
                             />
                         ))
                     ) : (
