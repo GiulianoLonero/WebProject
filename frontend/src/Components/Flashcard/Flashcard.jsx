@@ -49,10 +49,9 @@ const Flashcard = ({event,savedPage}) =>{
     const handleSaveEvent = async (e) => {
         e.preventDefault();
         try{
-            console.log("TUTTO L'UTENTE:", user)
+            console.log("TUTTO L'UTENTE:", user) //da togliere
             const response = await axios.put("http://localhost:5000/api/v1/events/saved-events", {
-                eventId: event._id,
-                userId: user._id
+                eventId: event._id
             },
             {
                 withCredentials: true,
@@ -64,6 +63,28 @@ const Flashcard = ({event,savedPage}) =>{
 
         changeSavedEvents(response.data.savedEvents)
 
+        }catch(error){
+            if(error.response){
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage("Server error")
+            }
+        }
+    }
+
+    const handleDeleteSavedEvent = async (e) => {
+        e.preventDefault()
+        try{
+            const response = await axios.delete("http://localhost:5000/api/v1/events/saved-events", {
+                eventId: event._id
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )   
         }catch(error){
             if(error.response){
                 setErrorMessage(error.response.data.message)
@@ -89,7 +110,7 @@ const Flashcard = ({event,savedPage}) =>{
                     {isAuth && (
                         <>
                         {!savedPage ? (<button className={styles.saveButton} type="button" onClick = {(e) => handleSaveEvent(e)}>Salva evento</button>):
-                        (<button className={styles.saveButton} type="button" onClick={(e)=>{}}>Elimina salvato</button>)
+                        (<button className={styles.saveButton} type="button" onClick={(e) => {handleDeleteSavedEvent(e)}}>Elimina salvato</button>)
                     }
                     </>)
                     }

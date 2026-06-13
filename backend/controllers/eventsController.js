@@ -155,7 +155,23 @@ const saveEvent = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: "Server error", error: error.message });
     }
-};
+}
+
+const deleteSavedEvent = async (req,res) => {
+    try{
+         eventId = req.body.eventId
+         userId = req.user?.id
+
+        const updatedUser = await User.findByIdAndUpdate(userId, 
+            { $pull: {savedEvents: eventId}},
+            { returnDocument: "after" }).populate("savedEvents")
+        if (!updatedUser) return res.status(404).json({message: "User not found"})
+        return res.status(200).json({message: "Event deleted", savedEvents: updatedUser.savedEvents});
+    } catch(error) {
+        return res.status(500).json({ message: "Server error", error: error.message });
+    }
+} 
+
 
 module.exports = {
     searchEvents,
@@ -163,5 +179,6 @@ module.exports = {
     createEvent,
     deleteEvent,
     editEvent,
-    saveEvent
+    saveEvent,
+    deleteSavedEvent
 }

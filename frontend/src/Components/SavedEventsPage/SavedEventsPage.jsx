@@ -4,10 +4,15 @@ import {useAuth} from "../../hooks/useAuth";
 import {Navigate} from "react-router-dom"
 import Flashcard from "../Flashcard/Flashcard";
 import { useEvent } from "../../hooks/useEvent";
+import { useEffect } from "react";
 
 const SavedEventsPage = () => {
     const {user, isAuth} = useAuth();
-    const {savedEvents} = useEvent();
+    const {savedEvents, changeSavedEvents} = useEvent();
+
+    useEffect(()=>{
+        changeSavedEvents(user.savedEvents)
+    },[])
 
     if (!isAuth){
         return <Navigate to = "/registration" replace/>;
