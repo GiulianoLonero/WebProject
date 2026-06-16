@@ -73,23 +73,30 @@ const Flashcard = ({event,savedPage}) =>{
     }
 
     const handleDeleteSavedEvent = async (e) => {
-        e.preventDefault()
-        try{
-            const response = await axios.delete("http://localhost:5000/api/v1/events/saved-events", {
-                eventId: event._id
-            },
-            {
-                withCredentials: true,
-                headers: {
-                    Authorization: `Bearer ${token}`
+        e.preventDefault();
+        try {
+            const response = await axios.delete(
+                "http://localhost:5000/api/v1/events/saved-events",
+                {
+                    data: { 
+                        eventId: event._id 
+                    },
+                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
+            );
+            // Aggiorna UI con l’elenco aggiornato lato backend (se torna savedEvents)
+            if (response?.data?.savedEvents) {
+                changeSavedEvents(response.data.savedEvents);
             }
-        )   
-        }catch(error){
-            if(error.response){
-                setErrorMessage(error.response.data.message)
+            window.location.reload()
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(error.response.data.message);
             } else {
-                setErrorMessage("Server error")
+                setErrorMessage("Server error");
             }
         }
     }
