@@ -47,8 +47,12 @@ export function AuthProvider({children}){
         
     }
 
+    function updateUser(savedEvents){
+        setUser({...user, savedEvents: savedEvents})
+    }
+
     return (
-        <AuthContext.Provider value={{user,token,login,logout, isLoading, isAuth: Boolean(token)}}>
+        <AuthContext.Provider value={{user,token,login,logout, isLoading, isAuth: Boolean(token), updateUser}}>
             {children}
         </AuthContext.Provider>
     )

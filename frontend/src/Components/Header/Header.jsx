@@ -25,8 +25,7 @@ const Header = function(){
             </div>
             
             <div className={styles.rightSection}>
-                {!isAuth ? (
-                    <button type="button" className={styles.loginButton} onClick={() => navigate("/login")}>
+                {!isAuth ? (<button type="button" className={styles.loginButton} onClick={() => navigate("/login")}>
                         Login
                     </button>
                 ) : (
@@ -46,6 +45,7 @@ const Header = function(){
                         <button type="button" className={styles.logoutButton} onClick={handleLogout}>
                             Logout
                         </button>
+                        <button type="button" className={styles.userButton} onClick={navigate(`/user-profile/${user._id}`)}>Profilo</button>
                     </>
                 )}
             </div>

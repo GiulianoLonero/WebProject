@@ -66,7 +66,7 @@ const login= async(req,res) => {
             mail: user.mail,
             role: user.role,
             savedEvents: user.savedEvents,
-            id: user._id
+            _id: user._id
         };
         
         res.status(200).json({message: "Successfully logged in!", accessToken: accessToken, userData: safeUserData})

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom"
 import {useEvent} from "../../hooks/useEvent"
 
 const Flashcard = ({event,savedPage}) =>{
-    const {isAuth, token, user} = useAuth()
+    const {isAuth, token, user, updateUser} = useAuth()
     const [errorMessage, setErrorMessage] = useState("");
     const imgurl = "/Assets/images/" + event.imgurl + ".jpg"
     const date = new Date(event.date).toLocaleDateString("it-IT")
@@ -31,10 +31,8 @@ const Flashcard = ({event,savedPage}) =>{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
-            })
-
-            window.location.reload()
-            
+            })  
+        window.location.reload();          
          }catch(error){
             if(error.response){
                 setErrorMessage(error.response.data.message)
@@ -61,7 +59,8 @@ const Flashcard = ({event,savedPage}) =>{
             }
         )
 
-        changeSavedEvents(response.data.savedEvents)
+        updateUser(response.data.savedEvents)
+
 
         }catch(error){
             if(error.response){
@@ -91,7 +90,6 @@ const Flashcard = ({event,savedPage}) =>{
             if (response?.data?.savedEvents) {
                 changeSavedEvents(response.data.savedEvents);
             }
-            window.location.reload()
         } catch (error) {
             if (error.response) {
                 setErrorMessage(error.response.data.message);
