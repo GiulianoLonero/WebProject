@@ -49,7 +49,24 @@ const register = async(req,res) => {
     }
 };
 
+const getUser = async(req,res) => {
+    userId = req.params.id
+    try {
+        const user = await User.findById(userId).select("-password -refreshToken -email")
+        if (!user) return res.status(404).json({message: "User not found"})
+        const safeUser = {
+            name: user.name,
+            lastName: user.lastName,
+            savedEventsLength: user.savedEvents.length
+        }
+        return res.status(200).json({message: "User found", user: safeUser})
+    }catch(error){
+        res.status(500).json({message: "Error during creation", error: error.message});
+    }
+}
+
 module.exports = {
     verify,
-    register
+    register,
+    getUser
 };

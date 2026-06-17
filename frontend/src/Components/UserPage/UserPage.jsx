@@ -1,29 +1,31 @@
 import React from "react";
 import axios from "axios";
 import { useAuth } from "../../hooks/useAuth";
-import {useParams} from "react-router-dom";
-import { useState } from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import styles from "./UserPage.module.css"
 
 const UserPage = () => {
     const {isAuth, user} = useAuth();
     const {id} = useParams();
-    const [isSame, setIsSame] = useState();
-    const [searchedUser, setSearchedUser]= useState();
-    const [errorMessage, setErrorMessage] = useState();
+    const [searchedUser, setSearchedUser]= useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
+    const isSame = user?._id === id
 
     useEffect(()=>{
-        setIsSame(user?._id === id)
+        currentUser(isSame);
     },[id])
 
-    const currentUser= async (isSame)=>{
+    const currentUser = async (isSame)=>{
         if(isSame){
             setSearchedUser(user)
         }else{
             try{
-                const newUser = await axios.get("http://localhost:5000/api/v1/users",{
+                const response = await axios.get(`http://localhost:5000/api/v1/users/${id}`,{
                     id: id
                 })
-                setSearchedUser(newUser?.data?.user)
+                setSearchedUser(response.data.user)
             } catch(error){
             if(error.response){
                 setErrorMessage(error.response.data.message)
@@ -35,10 +37,21 @@ const UserPage = () => {
     }
 
     return (
-        <div>
-            <div>
-                Pagina utente
+        <div className={styles.profileContainer}>
+            <div className={styles.profileCard}>
+                <h2 className={styles.profileTitle}>Pagina utente</h2>
+                <p className={styles.paragraph}>Nome: {searchedUser.name} {searchedUser.lastName}</p>
+                <p className={styles.paragraph}>Numero di eventi salvati: {searchedUser.savedEventsLength}</p>
+                {isSame && (
+                    <>
+                <p className={styles.paragraph}>Mail: {searchedUser.mail}</p>
+                <button className={styles.button} type="button" onClick={() => navigate("/saved-events")}>I tuoi salvati</button>
+                <button className={styles.button} type="button">Modifica profilo</button>
+                    </>)
+                    }
             </div>
         </div>
     )
 }
+
+export default UserPage

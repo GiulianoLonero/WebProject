@@ -1,0 +1,95 @@
+/* 1. Il Contenitore Esterno (Centra tutto nella pagina) */
+.profileContainer {
+    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header */
+    background-color: #e4e7eb; /* Grigio chiaro coordinato */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* 2. La Card del Profilo */
+.profileCard {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px; /* Larghezza simile alla card del Login */
+    padding: 2.5rem;
+    border-radius: 24px; /* Bordi arrotondati morbidi */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Ombra profonda e moderna */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Titolo "Pagina utente" (Puoi racchiuderlo in un <h2> nel JSX per renderlo perfetto) */
+.profileCard h2, .profileTitle {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
+}
+
+/* 3. Stile per i Paragrafi di testo */
+.paragraph {
+    font-size: 1.05rem;
+    color: #4a5568; /* Grigio scuro leggibile */
+    margin: 0 0 1.2rem 0;
+    padding: 10px 15px;
+    background-color: #f7fafc; /* Leggero sfondo per separare le informazioni */
+    border-radius: 12px;
+    text-align: left; /* Allinea il testo a sinistra dentro la card */
+    font-weight: 500;
+}
+
+/* Evidenzia i dati dinamici rispetto alle etichette fissee */
+.paragraph strong {
+    color: #1a202c;
+}
+
+/* 4. I Bottoni dell'Utente Autenticato */
+.button {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+    margin-top: 1rem;
+    border-radius: 30px; /* Stile pillola identico al saveButton delle flashcard */
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Primo Bottone: "I tuoi salvati" (Stile Bianco con bordo o Grigio Chiaro Elegante) */
+.button:nth-of-type(1) {
+    background-color: #f1f3f5;
+    color: #333333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.button:nth-of-type(1):hover {
+    background-color: #e2e6ea;
+    color: #ff4757; /* Effetto corallo coordinato al passaggio del mouse */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Secondo Bottone: "Modifica profilo" (Colore primario Arancione/Rosso per staccare) */
+.button:nth-of-type(2) {
+    background-color: #ff9900; /* Lo stesso arancione acceso che usi per data e location */
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 153, 0, 0.2);
+}
+
+.button:nth-of-type(2):hover {
+    background-color: #ffaa22;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 153, 0, 0.3);
+}
+
+/* Effetto di schiacciamento al click per entrambi i bottoni */
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
