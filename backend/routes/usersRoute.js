@@ -7,6 +7,6 @@ router.get("/verify", verifyToken, verify);
 
 router.post("/register", register);
 
-router.get("/", getUser);
+router.get("/:id", getUser);
 
 module.exports = router;

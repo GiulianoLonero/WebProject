@@ -57,7 +57,7 @@ const getUser = async(req,res) => {
         const safeUser = {
             name: user.name,
             lastName: user.lastName,
-            savedEventsLength: user.savedEvents.length
+            savedEvents: user.savedEvents
         }
         return res.status(200).json({message: "User found", user: safeUser})
     }catch(error){
