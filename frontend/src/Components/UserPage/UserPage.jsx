@@ -46,7 +46,7 @@ const UserPage = () => {
                     <>
                 <p className={styles.paragraph}>Mail: {searchedUser.mail}</p>
                 <button className={styles.button} type="button" onClick={() => navigate("/events/saved-events")}>I tuoi salvati</button>
-                <button className={styles.button} type="button">Modifica profilo</button>
+                <button className={styles.button} type="button" onClick={()=>navigate(`/registration/${user._id}`)}>Modifica profilo</button>
                     </>)
                     }
             </div>

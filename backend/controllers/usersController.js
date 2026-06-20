@@ -65,8 +65,45 @@ const getUser = async(req,res) => {
     }
 }
 
+const editUser = async (req,res)=>{
+    const userId = req.user.id
+    
+    try{
+        const salt = await bcrypt.genSalt(10);
+
+        if (!req.body.oldPassword) return res.status(400).json({ message: "Insert old Password" });
+
+        let foundUser = await User.findById(userId);
+
+        if (!foundUser) return res.status(404).json({ message: "User not found" });
+
+        let userNewData = {
+            name:req.body.name,
+            lastName: req.body.lastName
+        }
+
+        const isMatch = await bcrypt.compare(req.body.oldPassword, foundUser.password);
+        if (!isMatch) return res.status(400).json({ message: "Wrong password" });
+
+        if (req.body.password){
+            if(req.body.password !== req.body.confirmPassword){
+                return res.status(400).json({message: "Password mismatch (aura)"})
+            }else{
+             const hashedPass = await bcrypt.hash(req.body.password,salt)
+             userNewData.password = hashedPass
+            }
+        }
+        
+        foundUser = await User.findByIdAndUpdate(userId,userNewData)
+        return res.status(200).json({message: "Successful update"})
+    }catch(error){
+        return res.status(500).json({message:"Server error"})
+    }
+}
+
 module.exports = {
     verify,
     register,
-    getUser
+    getUser,
+    editUser
 };

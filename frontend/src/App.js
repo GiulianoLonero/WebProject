@@ -22,7 +22,8 @@ function App() {
       <Header />
       <Routes>
         <Route path ="/login" element={<LoginForm/>}></Route>
-        <Route path ="/registration" element={<RegisterForm/>}></Route>
+        <Route path ="/registration/:id" element={<RegisterForm/>}></Route>
+        <Route path ="/registration/" element={<RegisterForm/>}></Route>
         <Route path ="/" element={<Home/>}></Route>
         <Route path ="/user-profile/:id" element={<UserPage />}></Route>
         <Route path ="/events/saved-events" element={<SavedEventsPage/>}></Route>
