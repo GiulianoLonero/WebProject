@@ -27,7 +27,7 @@ const Home = function(){
                 const location = searchParams.get("location")
                 const search = searchParams.get("search")
                 if (genre || location || search){
-                const response = await axios.get("http://localhost:5000/api/v1/events", {
+                const response = await axios.get("https://e-vent-server.onrender.com/api/v1/events", {
                     params: {
                         genre: genre,
                         location: location,
@@ -36,7 +36,7 @@ const Home = function(){
                 });
                 setEvents(response.data.events)
             } else {
-                const response = await axios.get("http://localhost:5000/api/v1/events/all-events")
+                const response = await axios.get("https://e-vent-server.onrender.com/api/v1/events/all-events")
                 setEvents(response.data.events)
             }
             } catch (error){

@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import {useAuth} from "../../hooks/useAuth"
 import {useNavigate} from "react-router-dom"
 
-const socket = io("http://localhost:5000");
+const socket = io("https://e-vent-server.onrender.com");
 
 const EventChat = ({eventId, onClose}) => {
     const {user, token, isAuth} = useAuth();

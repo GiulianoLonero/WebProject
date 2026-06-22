@@ -22,7 +22,7 @@ const UserPage = () => {
             setSearchedUser(user)
         }else{
             try{
-                const response = await axios.get(`http://localhost:5000/api/v1/users/${id}`,{
+                const response = await axios.get(`https://e-vent-server.onrender.com/api/v1/users/${id}`,{
                     id: id
                 })
                 setSearchedUser(response.data.user)

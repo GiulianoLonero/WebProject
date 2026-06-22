@@ -30,7 +30,7 @@ const RegisterForm = () => {
         setErrorMessage("")
         if(isSame){
             try{
-                const response = await axios.put("http://localhost:5000/api/v1/users/edit",{
+                const response = await axios.put("https://e-vent-server.onrender.com/api/v1/users/edit",{
                     name: name,
                     lastName: lastName,
                     oldPassword: oldPassword,
@@ -52,7 +52,7 @@ const RegisterForm = () => {
         }
         }else{
             try {
-            const response = await axios.post("http://localhost:5000/api/v1/users/register", {
+            const response = await axios.post("https://e-vent-server.onrender.com/api/v1/users/register", {
                 name: name,
                 lastName: lastName,
                 mail: mail,

@@ -67,14 +67,14 @@ const EventCreatePage = () => {
 
         try {
             if (!currentEvent) {
-                await axios.post("http://localhost:5000/api/v1/events/", eventParams, {
+                await axios.post("https://e-vent-server.onrender.com/api/v1/events/", eventParams, {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
             } else {
                 eventParams.id = currentEvent._id
-                await axios.put("http://localhost:5000/api/v1/events/", eventParams, {
+                await axios.put("https://e-vent-server.onrender.com/api/v1/events/", eventParams, {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }
                 });

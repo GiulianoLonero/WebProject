@@ -23,7 +23,7 @@ const Flashcard = ({event,savedPage, onOpenChat}) =>{
             return; 
         }
         try{
-            const response = await axios.delete("http://localhost:5000/api/v1/events/",{
+            const response = await axios.delete("https://e-vent-server.onrender.com/api/v1/events/",{
                 data:{
                     id: event._id
                 },
@@ -48,7 +48,7 @@ const Flashcard = ({event,savedPage, onOpenChat}) =>{
         e.preventDefault();
         try{
             console.log("TUTTO L'UTENTE:", user) //da togliere
-            const response = await axios.put("http://localhost:5000/api/v1/events/saved-events", {
+            const response = await axios.put("https://e-vent-server.onrender.com/api/v1/events/saved-events", {
                 eventId: event._id
             },
             {
@@ -75,7 +75,7 @@ const Flashcard = ({event,savedPage, onOpenChat}) =>{
         e.preventDefault();
         try {
             const response = await axios.delete(
-                "http://localhost:5000/api/v1/events/saved-events",
+                "https://e-vent-server.onrender.com/api/v1/events/saved-events",
                 {
                     data: { 
                         eventId: event._id 

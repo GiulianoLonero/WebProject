@@ -12,7 +12,7 @@ export function AuthProvider({children}){
     useEffect(()=>{
         const checkLogged = async ()=>{
             try{
-                const response = await axios.get("http://localhost:5000/api/v1/auth/refresh", {
+                const response = await axios.get("https://e-vent-server.onrender.com/api/v1/auth/refresh", {
                     withCredentials: true
                 });
                 setToken(response.data.accessToken);
@@ -35,7 +35,7 @@ export function AuthProvider({children}){
 
     async function logout() {
         try{
-            await axios.post("http://localhost:5000/api/v1/auth/logout",{},{
+            await axios.post("https://e-vent-server.onrender.com/api/v1/auth/logout",{},{
                 withCredentials: true
             });
         }catch (error){
