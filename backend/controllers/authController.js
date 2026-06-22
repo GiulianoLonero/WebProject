@@ -55,8 +55,8 @@ const login= async(req,res) => {
 
         res.cookie("jwt",refreshToken,{
             httpOnly: true,
-            secure: false, // True per HTTPs
-            sameSite: "strict",
+            secure: true, // True per HTTPs
+            sameSite: "none", // strict mentre eravamo in local, ora necessariamente none per il deployment
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
