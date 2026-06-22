@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar"
 import { useState } from "react"
 import axios from "axios"
 import Flashcard from "../Flashcard/Flashcard";
+import EventChat from "../EventChat/EventChat";
 import styles from "./Home.module.css"
 
 
@@ -13,7 +14,9 @@ const Home = function(){
     const navigate = useNavigate();
 
     const [searchParams] = useSearchParams();
-    const [events, setEvents] = useState([]) 
+    const [events, setEvents] = useState([]);
+    
+    const [activeChatEventId, setActiveChatEventId] = useState(null);
 
     //per mostrare tutte le flashcard
 
@@ -72,6 +75,7 @@ const Home = function(){
                                 key={event._id}
                                 event={event}
                                 savedPage={false}
+                                onOpenChat={(id) => setActiveChatEventId(id)}
                             />
                         ))
                     ) : (
@@ -81,7 +85,13 @@ const Home = function(){
                     )}
                 </div>
             </div>
-
+            {activeChatEventId && (
+                <EventChat 
+                    eventId={activeChatEventId} 
+                    currentUser={user} 
+                    onClose={() => setActiveChatEventId(null)} // Chiude azzerando lo stato
+                />
+            )}
         </div>
     );
 }

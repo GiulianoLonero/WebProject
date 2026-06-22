@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const http = require("http")
+const { Server } = require("socket.io")
 const cors = require("cors");
 const router = require("./router")
 require("dotenv").config();
@@ -20,7 +22,40 @@ mongoose.connect(atlasuri)
     .then(() => console.log("Database connected..."))
     .catch((error) => console.log("Error:", error, "\n"));
     
+//server HTTP nativo di Node che avvolge l'app Express
+const server = http.createServer(app)
 
-app.listen(5000, ()=>{
+const io = new Server(server, { //inizializzazione di Socket.IO
+    cors: {
+        origin: "http://localhost:3000", //
+        methods: ["GET", "POST"]
+    }
+});
+
+// 3. Gestione delle connessioni WebSocket
+io.on("connection", (socket) => {
+    console.log(`Utente connesso alla chat: ${socket.id}`);
+
+    // A. L'utente entra nella stanza specifica dell'evento
+    socket.on("join_event_chat", (eventId) => {
+        socket.join(eventId);
+        console.log(`Utente ${socket.id} entrato nella stanza dell'evento: ${eventId}`);
+    });
+
+    // B. Ricezione di un messaggio da un utente e inoltro solo ai membri della stanza
+    socket.on("send_message", (data) => {
+        socket.to(data.eventId).emit("receive_message", { //broadcast in cui escludo il mittente (altrimenti avrei usato io al posto di socket)
+            text: data.text,
+            senderName: data.senderName,
+            senderId: data.senderId,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+    });
+    socket.on("disconnect", () => {
+        console.log(`Utente disconnesso: ${socket.id}`);
+    });
+});
+
+server.listen(5000, ()=>{
     console.log("Server listening...")
 });

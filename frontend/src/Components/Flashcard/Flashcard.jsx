@@ -6,7 +6,7 @@ import {useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {useEvent} from "../../hooks/useEvent"
 
-const Flashcard = ({event,savedPage}) =>{
+const Flashcard = ({event,savedPage, onOpenChat}) =>{
     const {isAuth, token, user, updateUser} = useAuth()
     const [errorMessage, setErrorMessage] = useState("");
     const imgurl = "/Assets/images/" + event.imgurl + ".jpg"
@@ -132,6 +132,7 @@ const Flashcard = ({event,savedPage}) =>{
                         <p className={styles.FlashcardDesc}>{event.description}</p>
                         <p className={styles.FlashcardDate}>{date}</p>
                         <p className={styles.FlashcardLoc}>{event.position?.city}</p>
+                        <button type="button" onClick={() => onOpenChat(event._id)} className={styles.chatButton}>Commenti</button>
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                     </div>
                 </div>
