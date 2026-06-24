@@ -24,14 +24,11 @@
 }
 
 .logo {
-    height: 45px; /* Grandezza ottimale per il nuovo logo */
+    height: 45px; 
     width: auto;
+    max-width: 100%; /* 👈 Rete di sicurezza */
     cursor: pointer;
     transition: transform 0.2s ease;
-}
-
-.logo:hover {
-    transform: scale(1.05); /* Piccolo effetto zoom quando ci passi sopra */
 }
 
 .rightSection {
