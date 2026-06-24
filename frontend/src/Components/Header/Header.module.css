@@ -1,79 +1,86 @@
 .Header {
-    display: grid;
-    /* La magia: 1fr (frazione) a sinistra, "auto" in mezzo, 1fr a destra. Centratura assoluta! */
-    grid-template-columns: 1fr auto 1fr; 
+    display: flex; /* La vera magia per 2 sezioni: le spinge ai due lati opposti! */
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #530000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #ffffff; /* Sfondo bianco per far leggere il logo scuro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Ombra più moderna e leggera */
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* --- LE 3 SEZIONI --- */
+/* --- LE 2 SEZIONI --- */
 .leftSection {
     display: flex;
-    justify-content: flex-start; /* Schiaccia il logo a sinistra */
+    align-items: center;
 }
 
 .logo {
-    height: 40px; /* Aggiusta la grandezza del logo se serve */
+    height: 70px; /* Logo bello grande e visibile */
     width: auto;
+    max-width: 100%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.centerSection {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-
-.title {
-    color: #d7d7d7;
-    margin: 0;
+.logo:hover {
+    transform: scale(1.05); /* Effetto zoom al passaggio del mouse */
 }
 
 .rightSection {
     display: flex;
-    justify-content: flex-end; /* Schiaccia i bottoni a destra */
-    gap: 15px; /* Spazio tra un bottone e l'altro */
+    align-items: center;
+    gap: 12px; /* Spazio tra i bottoni */
 }
 
 /* --- I BOTTONI --- */
-.loginButton, .logoutButton, .createEventButton {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+.loginButton, .logoutButton, .createEventButton, .userButton {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px; /* Design più moderno */
     border: none;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-    
-    /* LA REGOLA PER RENDERLI IDENTICI: */
-    min-width: 80px;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    min-width: 90px;
     text-align: center;
     box-sizing: border-box;
 }
 
-.loginButton {
-    background-color: #007bff;
+/* Bottoni principali (Rosso Bordeaux del tuo nuovo logo) */
+.loginButton, .createEventButton {
+    background-color: #8b1515;
+    color: white;
+    box-shadow: 0 4px 10px rgba(139, 21, 21, 0.2);
+}
+
+.loginButton:hover, .createEventButton:hover {
+    background-color: #610d0d; /* Diventa più scuro quando ci passi sopra */
+    transform: translateY(-2px);
+}
+
+/* Bottone Profilo (Grigio scuro per contrasto) */
+.userButton {
+    background-color: #222222;
     color: white;
 }
 
-.loginButton:hover {
-    background-color: #0056b3;
+.userButton:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
 }
 
+/* Bottone Logout (Stile "vuoto" con solo il bordo rosso) */
 .logoutButton {
-    background-color: #dc3545;
-    color: white;
+    background-color: transparent;
+    color: #8b1515;
+    border: 2px solid #8b1515;
+    padding: calc(0.6rem - 2px) 1.2rem; /* Bilancia lo spessore del bordo */
 }
 
 .logoutButton:hover {
-    background-color: #b02a37;
-}
-
-.createEventButton {
-    background-color: #28a745;
+    background-color: #8b1515;
     color: white;
-}
-
-.createEventButton:hover {
-    background-color: #1e7e34;
 }
