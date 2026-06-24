@@ -6,7 +6,7 @@ import { useEvent } from "../../hooks/useEvent";
 
 const Header = function(){
     const {resetEvent} = useEvent();
-    const logo = "/Assets/favicon.ico"
+    const logo = "/Event.png"
     const { isAuth, logout, user } = useAuth();
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -16,12 +16,8 @@ const Header = function(){
     }        
     return (
         <div className={styles.Header}>
-            <div className={styles.leftSection}>
-                <img src={logo} alt="Icon" className={styles.logo} />
-            </div>
-
             <div className={styles.centerSection}>
-                <h1 className={styles.title} onClick={(e)=>navigate("/")}>PoliTicket</h1>
+                <img src={logo} alt="Titolo" onClick={() => navigate("/")}/>
             </div>
             
             <div className={styles.rightSection}>
