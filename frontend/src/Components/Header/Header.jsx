@@ -17,7 +17,7 @@ const Header = function(){
     return (
         <div className={styles.Header}>
             <div className={styles.leftSection}>
-                <img src={logo} alt="Icon" className={styles.logo} />
+                <img src={logo} alt="Icon" className={styles.logo} onClick={()=>{navigate("/")}} />
             </div>
             
             <div className={styles.rightSection}>

@@ -5,8 +5,6 @@
     padding: 1rem 2rem;
     background-color: #ffffff; /* Sfondo bianco per far leggere il logo scuro */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Ombra più moderna e leggera */
-    top: 0;
-    z-index: 100;
 }
 
 /* --- LE 2 SEZIONI --- */
@@ -16,7 +14,7 @@
 }
 
 .logo {
-    height: 70px; /* Logo bello grande e visibile */
+    height: 90px; /* Logo bello grande e visibile */
     width: auto;
     max-width: 100%;
     cursor: pointer;
