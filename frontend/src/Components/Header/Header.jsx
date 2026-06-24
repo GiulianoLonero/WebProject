@@ -18,7 +18,7 @@ const Header = function(){
         <div className={styles.Header}>
             <div className={styles.leftSection}></div>
             <div className={styles.centerSection}>
-                <img src={logo} alt="Titolo" onClick={() => navigate("/")}/>
+                <img src={logo} className={styles.logo} alt="Titolo" onClick={() => navigate("/")}/>
             </div>
             
             <div className={styles.rightSection}>
