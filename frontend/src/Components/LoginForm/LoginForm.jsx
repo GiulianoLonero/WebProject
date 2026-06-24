@@ -1,23 +1,8 @@
 import React, { useState } from 'react';
-import "./LoginForm.css";
+import styles from "./LoginForm.module.css";
 import axios from "axios";
 import {useAuth } from "../../hooks/useAuth"
 import { useNavigate } from 'react-router-dom';
-
-// Function to generate a specific HTML Input box 
-function InputBox({type, placeholder, value, onChange}) {
-    return (
-        <div className="input-box">
-            <input
-                type = {type}
-                placeholder = {placeholder}
-                value = {value}
-                onChange = {onChange}
-                required
-            />
-        </div>
-    );  
-}
 
 // Async function called on submit button
 const handleSubmit = async (e, email, password, setErrorMessage, loginGlobal, navigate) => {
@@ -58,26 +43,17 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="wrapper">
-            <form className="form" onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage, login, navigate)}>
+        <div className={styles.div}>
+            <form className={styles.form} onSubmit={(e) => handleSubmit(e, email, password, setErrorMessage, login, navigate)}>
                 <h1> Login </h1>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                <InputBox 
-                    type = "text"
-                    placeholder = "mail"
-                    value = {email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <InputBox 
-                    type = "password"
-                    placeholder = "password"
-                    value = {password}
-                    onChange={e => setPassword(e.target.value)}
-                />
+                <input className = {styles.input} type = "text" placeholder = "Mail" value = {email} onChange={e => setEmail(e.target.value)}/>
+                <input className = {styles.input} type = "password" placeholder = "Password" value = {password} onChange={e => setPassword(e.target.value)}/>
                 <button type="submit">Login</button>
-                <p className = "paragraph" onClick={()=>navigate("/registration")}>Registrati</p>
+                <p className = {styles.paragraph} onClick={()=>navigate("/registration")}>Registrati</p>
             </form>
         </div>
     );
 };
+
 export default LoginForm;

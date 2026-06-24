@@ -1,10 +1,10 @@
 /* 1. Lo sfondo generale che occupa tutta la pagina */
-.wrapper {
-    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header se lo tieni fisso in alto */
+.div {
+    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e4e7eb; /* Lo stesso sfondo ai lati della Home! */
+    background-color: #e4e7eb; /* Stesso sfondo ai lati della Home */
     padding: 2rem;
 }
 
@@ -12,13 +12,14 @@
 .form {
     background-color: #ffffff;
     width: 100%;
-    max-width: 400px; /* Non troppo largo, è un login */
+    max-width: 400px;
     padding: 3rem 2rem;
-    border-radius: 24px; /* Stessi angoli della Home */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Stessa ombra morbida */
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Spazio tra gli input */
+    gap: 1.5rem;
+    animation: slideUp 0.4s ease-out forwards; /* Animazione di comparsa */
 }
 
 /* Il Titolo */
@@ -29,37 +30,33 @@
     font-size: 2rem;
 }
 
-/* 3. Gli Input Box */
-.input-box {
-    width: 100%;
-}
-
-.input-box input {
+/* 3. Gli Input Box (Apparati direttamente al tag <input>) */
+.input {
     width: 100%;
     padding: 14px 16px;
     font-size: 15px;
     font-family: inherit;
     color: #333;
-    background-color: #f8f9fa; /* Un grigio chiarissimo per l'interno dell'input */
+    background-color: #f8f9fa;
     border: 1.5px solid #e0e0e0;
-    border-radius: 8px; /* Stessi bordi degli input della navbar */
+    border-radius: 8px;
     outline: none;
     transition: all 0.2s ease;
     box-sizing: border-box; /* Evita che il padding sbordi fuori */
 }
 
-.input-box input::placeholder {
+.input::placeholder {
     color: #999;
 }
 
 /* Quando l'utente clicca per scrivere */
-.input-box input:focus {
-    border-color: #ff4757; /* Il nostro colore accento */
+.input:focus {
+    border-color: #ff4757;
     background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); /* Bellissimo alone rosso morbido */
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); /* Alone rosso morbido */
 }
 
-/* 4. Il super bottone Cerca/Login */
+/* 4. Il super bottone Login */
 .form button[type="submit"] {
     margin-top: 1rem;
     padding: 14px;
@@ -77,7 +74,7 @@
 
 .form button[type="submit"]:hover {
     background-color: #ff6b81;
-    transform: translateY(-2px); /* Effetto sollevamento al passaggio del mouse */
+    transform: translateY(-2px); /* Effetto sollevamento */
     box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
 }
 
@@ -85,31 +82,24 @@
     transform: translateY(1px); /* Si schiaccia quando clicchi */
 }
 
-/* Animazione di comparsa (Opzionale ma fa un bell'effetto) */
-.form {
-    animation: slideUp 0.4s ease-out forwards;
-}
-
+/* 5. Il testo "Registrati" */
 .paragraph {
     text-align: center;
-    font-size: 14px;
-    color: #666;
+    font-size: 15px;
+    color: #ff4757; /* Rosso di base per sembrare un link */
+    font-weight: 600;
+    text-decoration: underline;
     margin-top: 0.5rem;
     cursor: pointer;
     user-select: none;
     transition: color 0.2s ease;
 }
 
-.paragraph span {
-    color: #ff4757; /* Il tuo colore rosso */
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-.paragraph:hover span {
+.paragraph:hover {
     color: #ff6b81; /* Rosso più chiaro al passaggio del mouse */
 }
 
+/* Animazione iniziale */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -119,5 +109,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-
 }
