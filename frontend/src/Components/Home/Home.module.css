@@ -1,7 +1,7 @@
 .homeContainer {
   min-height: 100vh;
-  /* Lo sfondo grigio/azzurrognolo riempie tutta la pagina dietro */
-  background-color: #e4e7eb; 
+  /* Lo sfondo riempie tutta la pagina dietro */
+  background-color: #ebf0b2; 
   padding-bottom: 4rem; 
 }
 
@@ -11,6 +11,7 @@
   margin: 0 auto;
   width: 90%;
   max-width: 1000px;
+  flex: 1;
   
   /* Arrotonda solo in basso! In alto è piatto e tocca la Navbar */
   border-radius: 0 0 24px 24px; 
