@@ -207,7 +207,7 @@
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-    width: 80%; /* Lo allunghiamo leggermente per farlo distendere bene al centro */
+    width: 100%; 
     margin: 12px 0;
     transition: all 0.2s ease;
 }
