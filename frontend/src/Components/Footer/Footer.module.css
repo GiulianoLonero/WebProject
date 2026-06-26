@@ -1,0 +1,15 @@
+.div{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    padding: 1rem, 2rem;
+    background-color:rgba(3, 3, 3, 0.34);
+    box-sizing: border-box;
+    z-index: 800;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.div p{
+    color:aliceblue;
+}

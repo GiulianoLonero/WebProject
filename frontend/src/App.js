@@ -9,6 +9,7 @@ import {useAuth} from "./hooks/useAuth"
 import EventCreatePage from "./Components/EventCreatePage/EventCreatePage";
 import SavedEventsPage from "./Components/SavedEventsPage/SavedEventsPage";
 import UserPage from "./Components/UserPage/UserPage";
+import Footer from "./Components/Footer/Footer";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           </ProtRouter>}
           />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
