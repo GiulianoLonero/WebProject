@@ -27,7 +27,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, { //inizializzazione di Socket.IO
     cors: {
-        origin: "http://localhost:3000", //
+        origin: "https://e-vent-theta.vercel.app", //
         methods: ["GET", "POST"]
     }
 });
