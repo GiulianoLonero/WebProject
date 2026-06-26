@@ -197,3 +197,27 @@
 .modButton:active {
   transform: translateX(-50%) translateY(1px);
 }
+
+.chatButton {
+    background-color: rgba(255, 255, 255, 0.15); /* Bianco molto sfumato, perfetto sullo sfondo scuro */
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Bordino leggero ed elegante */
+    padding: 8px 20px;
+    border-radius: 20px; /* Stile a pillola armonioso */
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 80%; /* Lo allunghiamo leggermente per farlo distendere bene al centro */
+    margin: 12px 0;
+    transition: all 0.2s ease;
+}
+
+.chatButton:hover {
+    background-color: rgba(255, 255, 255, 0.25); /* Si illumina leggermente al passaggio del mouse */
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.chatButton:active {
+    transform: translateY(0);
+}

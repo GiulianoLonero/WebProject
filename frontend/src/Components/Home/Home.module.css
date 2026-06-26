@@ -41,3 +41,26 @@
   color: #666;
   font-weight: 500;
 }
+
+.asideDiv button {
+    background-color: #1a202c; /* Colore scuro profondo e istituzionale */
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 25px; /* Angoli perfettamente smussati in armonia con le card */
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Ombra leggera per dargli profondità */
+    transition: all 0.2s ease;
+}
+
+.asideDiv button:hover {
+    background-color: #2d3748; /* Schiarisce leggermente sull'hover */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.asideDiv button:active {
+    transform: translateY(0);
+}
