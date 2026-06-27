@@ -1,14 +1,12 @@
-/* 1. Lo sfondo generale che occupa tutta la pagina */
 .div {
-    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header */
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e4e7eb; /* Stesso sfondo ai lati della Home */
+    background-color: #fffcf0;
     padding: 2rem;
 }
 
-/* 2. Il "foglio bianco" (La Card del Login) */
 .form {
     background-color: #ffffff;
     width: 100%;
@@ -19,10 +17,9 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    animation: slideUp 0.4s ease-out forwards; /* Animazione di comparsa */
+    animation: slideUp 0.4s ease-out forwards;
 }
 
-/* Il Titolo */
 .form h1 {
     color: #333;
     text-align: center;
@@ -30,7 +27,6 @@
     font-size: 2rem;
 }
 
-/* 3. Gli Input Box (Apparati direttamente al tag <input>) */
 .input {
     width: 100%;
     padding: 14px 16px;
@@ -42,21 +38,19 @@
     border-radius: 8px;
     outline: none;
     transition: all 0.2s ease;
-    box-sizing: border-box; /* Evita che il padding sbordi fuori */
+    box-sizing: border-box;
 }
 
 .input::placeholder {
     color: #999;
 }
 
-/* Quando l'utente clicca per scrivere */
 .input:focus {
     border-color: #ff4757;
     background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); /* Alone rosso morbido */
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15);
 }
 
-/* 4. Il super bottone Login */
 .form button[type="submit"] {
     margin-top: 1rem;
     padding: 14px;
@@ -74,32 +68,31 @@
 
 .form button[type="submit"]:hover {
     background-color: #ff6b81;
-    transform: translateY(-2px); /* Effetto sollevamento */
+    transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
 }
 
 .form button[type="submit"]:active {
-    transform: translateY(1px); /* Si schiaccia quando clicchi */
+    transform: translateY(1px);
 }
 
-/* 5. Il testo "Registrati" */
 .paragraph {
     text-align: center;
     font-size: 15px;
-    color: #ff4757; /* Rosso di base per sembrare un link */
+    color: #ff4757;
     font-weight: 600;
     text-decoration: underline;
     margin-top: 0.5rem;
     cursor: pointer;
-    user-select: none;
+    user-select: none; /*disabilito copia incolla*/
     transition: color 0.2s ease;
 }
 
 .paragraph:hover {
-    color: #ff6b81; /* Rosso più chiaro al passaggio del mouse */
+    color: #ff6b81;
 }
 
-/* Animazione iniziale */
+/* la nostra mitica funzione di slideUp aura*/
 @keyframes slideUp {
     from {
         opacity: 0;

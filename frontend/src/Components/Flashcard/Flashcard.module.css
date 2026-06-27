@@ -2,9 +2,9 @@
   background-color: transparent;
   width: 320px;
   height: 450px;
-  perspective: 1000px;
+  perspective: 1000px; /*prospettiva in un'animazione 3D*/
   margin: 15px;
-  cursor: pointer;
+  cursor: pointer; /*imposto cursore su puntatore quando ci passo sopra*/
 }
 
 .FlashcardInner {
@@ -12,8 +12,8 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* cubic-bezier gestisce accelerazioni dell'animazione*/
+  transform-style: preserve-3d; /*preserva il 3D anche per i figli*/
 }
 
 .FlashcardContainer:hover .FlashcardInner {
@@ -26,7 +26,7 @@
   height: 100%;
   backface-visibility: hidden;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: hidden; /*non mostro il testo se esce dalla flashcard*/
   box-shadow: 0 8px 16px rgba(0,0,0,0.25);
 }
 
@@ -37,21 +37,21 @@
 .imageFront {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /*adatta l'immagine allo sfondo della carta*/
 }
 
 .FlashcardBack {
   background-color: #111;
   transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
+  display: flex; 
+  flex-direction: column; /*dispongo lungo la colonna*/
   justify-content: center;
   align-items: center;
   position: relative;
 }
 
 .imageBack {
-  position: absolute;
+  position: absolute; /*tolgo dal flusso per mettere sul background con z-index*/
   top: 0;
   left: 0;
   width: 100%;
@@ -59,10 +59,10 @@
   object-fit: cover;
   z-index: 1;
   filter: blur(12px);
-  transform: scale(1.1);
+  transform: scale(1.1); /*per non mostrare i bordi blurrati dell'immagine*/
 }
 
-.overlay {
+.overlay { /*metto un colore scuro sull'immagine blurrata*/
   position: absolute;
   top: 0;
   left: 0;
@@ -79,14 +79,14 @@
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 12px; /*gap tra elementi sulla colonna*/
 }
 
 .FlashcardTitle {
   font-size: 1.6rem;
-  font-weight: 800;
+  font-weight: 800; /*livello di grassetto*/
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.2; /*spazio tra una linea e l'altra*/
 }
 
 .FlashcardDesc {
@@ -122,7 +122,7 @@
   font-family: Arial, sans-serif;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  transition: all 0.2s ease;
+  transition: all 0.2s ease; /*all per tutte le proprietà, 0.2 il tempo, ease curva di velocità*/
 }
 
 .delButton:hover {
@@ -138,8 +138,8 @@
 .saveButton {
   position: absolute;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50%; /*sposto a sinistra*/
+  transform: translateX(-50%); /*porto al centro*/
   z-index: 10;
   padding: 10px 20px;
   border-radius: 30px;
@@ -154,7 +154,7 @@
   transition: all 0.2s ease;
 }
 
-.FlashcardBack:has(.modButton) .saveButton {
+.FlashcardBack:has(.modButton) .saveButton { /*se ha il bottone di modifica sposta del 50% - 65px*/
   left: calc(50% - 65px);
 }
 
@@ -199,11 +199,11 @@
 }
 
 .chatButton {
-    background-color: rgba(255, 255, 255, 0.15); /* Bianco molto sfumato, perfetto sullo sfondo scuro */
+    background-color: rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.25); /* Bordino leggero ed elegante */
+    border: 1px solid rgba(255, 255, 255, 0.25);
     padding: 8px 20px;
-    border-radius: 20px; /* Stile a pillola armonioso */
+    border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
@@ -213,7 +213,7 @@
 }
 
 .chatButton:hover {
-    background-color: rgba(255, 255, 255, 0.25); /* Si illumina leggermente al passaggio del mouse */
+    background-color: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-1px);
 }

@@ -1,28 +1,25 @@
-/* 1. Il Contenitore Esterno (Sostituisce .wrapper con il tuo .div) */
 .div {
-    min-height: calc(100vh - 80px); /* Sottrae l'altezza dell'header se fisso */
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e4e7eb; /* Stesso sfondo coordinato */
+    background-color: #fffcf0;
     padding: 2rem;
 }
 
-/* 2. Il foglio bianco (La Card di Registrazione) */
 .form {
     background-color: #ffffff;
     width: 100%;
-    max-width: 430px; /* Un pelo più largo del login per bilanciare l'altezza */
-    padding: 2.5rem 2rem; /* Padding ottimizzato */
+    max-width: 430px;
+    padding: 2.5rem 2rem;
     border-radius: 24px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 1.1rem; /* Spazio leggermente ridotto per renderlo compatto e stiloso */
+    gap: 1.1rem;
     animation: slideUp 0.4s ease-out forwards;
 }
 
-/* Stile per l'eventuale Titolo H1 dentro il form */
 .form h1 {
     color: #333;
     text-align: center;
@@ -30,7 +27,6 @@
     font-size: 2rem;
 }
 
-/* Lo stile per il messaggio di errore che abbiamo aggiunto prima */
 .errorMessage {
     background-color: #ffe0e3;
     color: #ff4757;
@@ -43,22 +39,20 @@
     margin-bottom: 0.2rem;
 }
 
-/* 3. I tuoi Input Box personalizzati */
 .name, .lastName, .mail, .password, .confirmPassword {
     width: 100%;
     padding: 14px 16px;
     font-size: 15px;
     font-family: inherit;
     color: #333;
-    background-color: #f8f9fa; /* Grigio chiarissimo interno */
+    background-color: #f8f9fa;
     border: 1.5px solid #e0e0e0;
     border-radius: 8px;
     outline: none;
     transition: all 0.2s ease;
-    box-sizing: border-box; /* Evita brutti scherzi con i bordi */
+    box-sizing: border-box;
 }
 
-/* Stile cumulativo per tutti i placeholder */
 .name::placeholder, 
 .lastName::placeholder, 
 .mail::placeholder, 
@@ -67,18 +61,16 @@
     color: #999;
 }
 
-/* L'effetto magico del Focus (L'alone rosso morbido) quando si scrive */
 .name:focus, 
 .lastName:focus, 
 .mail:focus, 
 .password:focus, 
-.confirmPassword:focus {
-    border-color: #ff4757; /* Colore accento */
+.confirmPassword:focus { /*"focus" per quando ci scrivi dentro*/
+    border-color: #ff4757;
     background-color: #ffffff;
     box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15);
 }
 
-/* 4. Il Bottone Invia (Sostituisce il vecchio selettore con .button) */
 .button {
     margin-top: 0.8rem;
     padding: 14px;
@@ -96,15 +88,14 @@
 
 .button:hover {
     background-color: #ff6b81;
-    transform: translateY(-2px); /* Effetto sollevamento */
+    transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
 }
 
 .button:active {
-    transform: translateY(1px); /* Effetto clic pressione */
+    transform: translateY(1px);
 }
 
-/* Animazione di comparsa fluida dal basso verso l'alto */
 @keyframes slideUp {
     from {
         opacity: 0;

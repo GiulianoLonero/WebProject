@@ -1,20 +1,18 @@
-/* 1. Lo sfondo oscurato che copre l'intera pagina (Overlay) */
 .chatOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6); /* Sfondo scuro leggermente più intenso */
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px); /*blur dietro la chat*/
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* 🌟 Forzato sopra a qualsiasi altro elemento del sito */
+    z-index: 9999;
     animation: fadeIn 0.2s ease-out;
 }
 
-/* 2. Il Box della Chat vero e proprio */
 .chatBox {
     background-color: #ffffff;
     width: 90%;
@@ -24,12 +22,11 @@
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     display: flex;
-    flex-direction: column; /* Dispone Header, Messaggi e Input in verticale */
+    flex-direction: column;
     overflow: hidden;
     animation: slideUp 0.25s ease-out;
 }
 
-/* 3. L'Header della Chat */
 .chatHeader {
     background-color: #ffffff;
     padding: 1.2rem 1.5rem;
@@ -44,10 +41,8 @@
     font-size: 1.2rem;
     font-weight: 800;
     color: #1a202c;
-    letter-spacing: -0.3px;
 }
 
-/* Il bottone di chiusura (La X di &times;) */
 .closeBtn {
     background: none;
     border: none;
@@ -60,40 +55,37 @@
 }
 
 .closeBtn:hover {
-    color: #ff4757; /* Cambia in rosso corallo al passaggio del mouse */
+    color: #ff4757;
 }
 
-/* 4. Il Contenitore dei Messaggi (Area con lo Scroll) */
 .messagesContainer {
-    flex: 1; /* Prende tutto lo spazio centrale disponibile */
+    flex: 1;
     padding: 1.5rem;
-    background-color: #f7fafc; /* Sfondo leggermente grigio per staccare */
-    overflow-y: auto; /* Attiva lo scroll verticale quando ci sono molti messaggi */
+    background-color: #f7fafc;
+    overflow-y: auto; /*se vado in overflow verticale metto la scrollbar*/
     display: flex;
     flex-direction: column;
-    gap: 0.8rem; /* Spazio tra una riga di messaggio e l'altra */
+    gap: 0.8rem;
 }
 
-/* La singola riga del messaggio */
 .messageRow {
     background-color: #ffffff;
     padding: 10px 14px;
     border-radius: 16px;
-    border-bottom-left-radius: 4px; /* Effetto fumetto */
+    border-bottom-left-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     max-width: 85%;
-    align-self: flex-start; /* Di base i messaggi si allineano a sinistra */
-    word-break: break-word; /* Evita che testi lunghi escano dal box */
+    align-self: flex-start;
+    word-break: break-word;
     font-size: 0.95rem;
     color: #2d3748;
     line-height: 1.4;
 }
 
-/* 🌟 Il Link Cliccabile sul Nome dell'Utente */
 .senderLink {
     font-weight: 700;
-    color: #ff9900; /* Il colore arancione aziendale del tuo sito */
-    cursor: pointer; /* Fa comparire la manina */
+    color: #b40000;
+    cursor: pointer;
     margin-right: 6px;
     display: inline-block;
     transition: color 0.2s ease;
@@ -101,15 +93,13 @@
 
 .senderLink:hover {
     text-decoration: underline;
-    color: #ffaa22;
+    color: #c41e1e;
 }
 
-/* Il testo puro del messaggio */
 .text {
     font-weight: 400;
 }
 
-/* 5. Il Form di Input in fondo alla Chat */
 .chatForm {
     padding: 1rem 1.5rem;
     background-color: #ffffff;
@@ -123,18 +113,18 @@
     flex: 1;
     padding: 12px 16px;
     border: 1px solid #e2e8f0;
-    border-radius: 30px; /* Stile pillola coerente con i tuoi bottoni */
+    border-radius: 30px;
     font-size: 0.95rem;
     outline: none;
     transition: border-color 0.2s ease;
 }
 
 .chatForm input:focus {
-    border-color: #ff9900; /* Evidenzia in arancione quando scrivi */
+    border-color: #c41e1e;
 }
 
 .chatForm button {
-    background-color: #ff9900;
+    background-color: #b40000;
     color: #ffffff;
     border: none;
     padding: 12px 20px;
@@ -147,7 +137,7 @@
 }
 
 .chatForm button:hover {
-    background-color: #ffaa22;
+    background-color: #ca1b1b;
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(255, 153, 0, 0.3);
 }

@@ -1,11 +1,9 @@
 .homeContainer {
   min-height: 100vh;
-  /* Lo sfondo riempie tutta la pagina dietro */
   background-color: #fffcf0; 
   padding-bottom: 4rem; 
 }
 
-/* QUESTO È IL FOGLIO BIANCO CENTRALE */
 .mainContent {
   background-color: #ffffff;
   margin: 0 auto;
@@ -13,21 +11,18 @@
   max-width: 1000px;
   flex: 1;
   
-  /* Arrotonda solo in basso! In alto è piatto e tocca la Navbar */
   border-radius: 0 0 24px 24px; 
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  
   padding: 2rem 1rem 4rem 1rem;
-  min-height: 70vh; /* Fa in modo che il foglio bianco sia sempre abbastanza lungo */
+  min-height: 70vh;
 }
 
 .headerSection {
   text-align: center;
   color: #333;
-  margin-bottom: 3rem; /* Crea spazio prima che inizino le Flashcard */
+  margin-bottom: 3rem;
 }
 
-/* La griglia ora si occupa solo di impilare le card */
 .eventsGrid {
   display: flex;
   flex-direction: column;
@@ -43,20 +38,21 @@
 }
 
 .asideDiv button {
-    background-color: #1a202c; /* Colore scuro profondo e istituzionale */
+    background-color: #1a202c;
     color: #ffffff;
     border: none;
     padding: 10px 24px;
-    border-radius: 25px; /* Angoli perfettamente smussati in armonia con le card */
+    border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Ombra leggera per dargli profondità */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
+    margin: 15px 0px 0px 0px;
 }
 
 .asideDiv button:hover {
-    background-color: #2d3748; /* Schiarisce leggermente sull'hover */
+    background-color: #2d3748;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
 }

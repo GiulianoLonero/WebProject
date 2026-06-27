@@ -40,11 +40,11 @@ const UserPage = () => {
         <div className={styles.profileContainer}>
             <div className={styles.profileCard}>
                 <h2 className={styles.profileTitle}>Pagina utente</h2>
-                <p className={styles.paragraph}>Nome: {searchedUser.name} {searchedUser.lastName}</p>
-                <p className={styles.paragraph}>Numero di eventi salvati: {searchedUser.savedEvents?.length}</p>
+                <p className={styles.paragraph}>Nome: <b>{searchedUser.name} {searchedUser.lastName}</b></p>
+                <p className={styles.paragraph}>Numero di eventi salvati: <b>{searchedUser.savedEvents?.length}</b></p>
                 {isSame && (
                     <>
-                <p className={styles.paragraph}>Mail: {searchedUser.mail}</p>
+                <p className={styles.paragraph}>Mail: <b>{searchedUser.mail}</b></p>
                 <button className={styles.button} type="button" onClick={() => navigate("/events/saved-events")}>I tuoi salvati</button>
                 <button className={styles.button} type="button" onClick={()=>navigate(`/registration/${user._id}`)}>Modifica profilo</button>
                     </>)
