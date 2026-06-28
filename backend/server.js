@@ -5,6 +5,8 @@ const http = require("http")
 const { Server } = require("socket.io")
 const cors = require("cors");
 const router = require("./router")
+const swaggerUi = require("swagger-ui-express");
+const swaggerDef = require("./swagger_definition");
 require("dotenv").config();
 
 
@@ -13,6 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: "https://e-vent-theta.vercel.app", credentials: true})); //origin: porta dove sarà situato il frontend, credentials:true per autorizzare il frontend
 app.use(cookieParser());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDef));
+
 
 app.use(router);
 
@@ -59,5 +64,6 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT
 
 server.listen(PORT, ()=>{
-    console.log("Server listening...")
+    console.log(`Server listening on port ${PORT}`)
 });
+
