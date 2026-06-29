@@ -36,46 +36,6 @@ const allEvents = async (req, res)=>{
     };
 };
 
-const createEvent = async (req,res)=>{
-    try{
-        const params = req.body;
-        if(!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address ) return res.status(400).json({message:"Missing infos"})
-        const existingEvent = await Event.findOne({title: params.title})
-        if(existingEvent) return res.status(400).json({message:"Event already existing"})
-
-        const artists = []
-
-            if(params.artists && params.artists.length>0){
-                for (const artist of params.artists){
-                    const existingArtist = await Artist.findOne({name: artist.name})
-                    if (existingArtist) artists.push(existingArtist)
-                    else{
-                        const newArtist = await Artist.create({name: artist.name})
-                        artists.push(newArtist)
-                    }
-                }
-            }
-        
-        
-
-        const newEvent = await Event.create({
-            title: params.title,
-            date: params.date,
-            position: params.position,
-            numberOfTickets: params.numberOfTickets,
-            artists: artists,
-            genre: params.genre,
-            description: params.description,
-            imgurl: params.imgurl
-        });
-
-        return res.status(201).json({message:"Successfully created ", event: newEvent});
-        
-        
-    }catch (error){
-        return res.status(500).json({ message: "Server error", error: error.message });
-    };
-};
 
 const deleteEvent = async (req,res)=>{
     try{
@@ -88,11 +48,21 @@ const deleteEvent = async (req,res)=>{
     };
 }
 
-const editEvent = async (req, res) => {
+const createOrEdit = async (req, res) => {
     try {
         const params = req.body;
+
+        if (!params.id) {
+            if (!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address) {
+                return res.status(400).json({ message: "Missing infos" });
+            }
+            const existingEvent = await Event.findOne({ title: params.title });
+            if (existingEvent) {
+                return res.status(400).json({ message: "Event already existing" });
+            }
+        }
+
         const artists = [];
-        
         if (params.artists && params.artists.length > 0) {
             for (const artist of params.artists) {
                 const existingArtist = await Artist.findOne({ name: artist.name });
@@ -105,31 +75,41 @@ const editEvent = async (req, res) => {
             }
         }
 
-        const updatedEvent = await Event.findByIdAndUpdate(
-            params.id, 
-            {
-                title: params.title,
-                description: params.description,
-                date: params.date,
-                position: params.position,
-                genre: params.genre,
-                artists: artists,
-                numberOfTickets: params.numberOfTickets,
-                imgurl: params.imgurl
-            }, 
-            { returnDocument: "after" }
-        );
+        const eventData = {
+            title: params.title,
+            description: params.description,
+            date: params.date,
+            position: params.position,
+            genre: params.genre,
+            artists: artists,
+            numberOfTickets: params.numberOfTickets,
+            imgurl: params.imgurl
+        };
 
-        if (!updatedEvent) {
-            return res.status(404).json({ message: "Event not found" });
+        if (params.id) {
+
+            const updatedEvent = await Event.findByIdAndUpdate(
+                params.id, 
+                eventData, 
+                { returnDocument: "after" }
+            );
+
+            if (!updatedEvent) {
+                return res.status(404).json({ message: "Event not found" });
+            }
+
+            return res.status(200).json({ message: "Event edited", event: updatedEvent });
+            
+        } else {
+
+            const newEvent = await Event.create(eventData);
+            return res.status(201).json({ message: "Successfully created", event: newEvent });
         }
 
-        return res.status(200).json({ message: "Event edited", event: updatedEvent });
-
-    }catch (error) {
+    } catch (error) {
         return res.status(500).json({ message: "Server error", error: error.message });
     }
-}
+};
 
 const saveEvent = async (req, res) => {
     try {
@@ -175,9 +155,8 @@ const deleteSavedEvent = async (req,res) => {
 module.exports = {
     searchEvents,
     allEvents,
-    createEvent,
+    createOrEdit,
     deleteEvent,
-    editEvent,
     saveEvent,
     deleteSavedEvent
 }

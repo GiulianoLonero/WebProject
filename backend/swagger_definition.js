@@ -86,14 +86,6 @@ module.exports = {
         responses: { 200: { description: "Successo" } }
       }
     },
-    "/api/v1/users/verify": {
-      get: {
-        summary: "Verifica token",
-        tags: ["Users"],
-        security: [{ bearerAuth: [] }],
-        responses: { 200: { description: "Successo" } }
-      }
-    },
     "/api/v1/users/register": {
       post: {
         summary: "Registra utente",

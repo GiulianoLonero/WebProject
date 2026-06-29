@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {searchEvents, allEvents, createEvent, deleteEvent, editEvent, saveEvent, deleteSavedEvent} = require("../controllers/eventsController");
+const {searchEvents, allEvents, createOrEdit, deleteEvent, saveEvent, deleteSavedEvent, createOrEdit, createOrEdit} = require("../controllers/eventsController");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const verifyToken = require("../middleware/verifyToken");
 
@@ -13,8 +13,8 @@ router.put("/saved-events", verifyToken, saveEvent);
 router.delete("/saved-events", verifyToken, deleteSavedEvent);
 
 //Protected routes
-router.post("/", verifyToken, verifyAdmin, createEvent);
+router.post("/", verifyToken, verifyAdmin, createOrEdit);
 router.delete("/", verifyToken, verifyAdmin, deleteEvent);
-router.put("/", verifyToken, verifyAdmin, editEvent);
+router.put("/", verifyToken, verifyAdmin, createOrEdit);
 
 module.exports = router;
