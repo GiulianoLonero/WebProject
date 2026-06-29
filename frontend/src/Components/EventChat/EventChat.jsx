@@ -57,13 +57,12 @@ const EventChat = ({eventId, onClose}) => {
             <div className={styles.chatBox}>
                 <div className={styles.chatHeader}>
                     <h3>Bacheca Live dell'Evento</h3>
-                    <button onClick={() => {console.log("Ho cliccato sulla X di chiusura!"); onClose()}} className={styles.closeBtn}>X</button>
+                    <button onClick={() => {onClose()}} className={styles.closeBtn}>X</button>
                 </div>
-                
                 <div className={styles.messagesContainer}>
                     {messagesList.map((msg, index) => (
                         <div key={index} className={styles.messageRow}>
-                            <span className={styles.sender} onClick = {() => {
+                            <span className={styles.senderLink} onClick = {() => {
                                     navigate(`/user-profile/${msg.senderId}`)
                             }}>{msg.senderName}:</span>
                             <span className={styles.text}>{msg.text}</span>

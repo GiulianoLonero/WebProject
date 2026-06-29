@@ -55,6 +55,8 @@ const createOrEdit = async (req, res) => {
         if (!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address) {
                 return res.status(400).json({ message: "Missing infos" });
             }
+        
+        if (params.numberOfTickets && params.numberOfTickets < 0) return res.status(400).json({ message: "Number of tickets must be 0 or more" });
 
         if (!params.id) {
             const existingEvent = await Event.findOne({ title: params.title });

@@ -69,7 +69,8 @@
     background-color: transparent;
     color: #8b1515;
     border: 2px solid #8b1515;
-    padding: calc(0.6rem - 2px) 1.2rem; /* Bilancia lo spessore del bordo */
+    padding: calc(0.6rem - 2px) 1.2rem; /*bilancia lo spessore del bordo */
+    transform: translateY(-2px); 
 }
 
 .logoutButton:hover {
