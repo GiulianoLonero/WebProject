@@ -52,7 +52,7 @@ const createOrEdit = async (req, res) => {
     try {
         const params = req.body;
 
-        if (!params.id) {
+        if (params.id) {
             if (!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address) {
                 return res.status(400).json({ message: "Missing infos" });
             }

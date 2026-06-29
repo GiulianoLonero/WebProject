@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {searchEvents, allEvents, createOrEdit, deleteEvent, saveEvent, deleteSavedEvent, createOrEdit, createOrEdit} = require("../controllers/eventsController");
+const {searchEvents, allEvents, createOrEdit, deleteEvent, saveEvent, deleteSavedEvent} = require("../controllers/eventsController");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const verifyToken = require("../middleware/verifyToken");
 
