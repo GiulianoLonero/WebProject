@@ -134,7 +134,6 @@ const editEvent = async (req, res) => {
 const saveEvent = async (req, res) => {
     try {
         const eventId = req.body.eventId;
-        // Prefer authenticated user from token (set by verifyToken)
         const userId = req.user?.id;
 
         if (!eventId) return res.status(400).json({ message: "Missing eventId" });

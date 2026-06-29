@@ -6,7 +6,6 @@ const waitingTime = 5*60*1000
 const loginLimiter = rateLimit({
     windowMs: waitingTime,
     max: 3,
-    skipSuccessfulRequest:true,
     message: {
         message: "Too many trials, try again in 5 minutes"
     },

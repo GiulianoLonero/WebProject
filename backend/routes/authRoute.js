@@ -3,7 +3,7 @@ const router = express.Router();
 const loginLimiter = require("../middleware/loginLimiter");
 const { login, refreshAToken, logout} = require("../controllers/authController");
 
-router.post("/"/*,loginLimiter*/, login);
+router.post("/",loginLimiter, login);
 
 router.get("/refresh", refreshAToken);
 
