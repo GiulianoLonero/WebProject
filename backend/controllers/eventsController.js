@@ -52,10 +52,11 @@ const createOrEdit = async (req, res) => {
     try {
         const params = req.body;
 
-        if (params.id) {
-            if (!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address) {
+        if (!params.title || !params.position || !params.position.name || !params.position.city || !params.position.address) {
                 return res.status(400).json({ message: "Missing infos" });
             }
+
+        if (!params.id) {
             const existingEvent = await Event.findOne({ title: params.title });
             if (existingEvent) {
                 return res.status(400).json({ message: "Event already existing" });
@@ -87,21 +88,16 @@ const createOrEdit = async (req, res) => {
         };
 
         if (params.id) {
-
             const updatedEvent = await Event.findByIdAndUpdate(
                 params.id, 
                 eventData, 
                 { returnDocument: "after" }
             );
-
             if (!updatedEvent) {
                 return res.status(404).json({ message: "Event not found" });
             }
-
             return res.status(200).json({ message: "Event edited", event: updatedEvent });
-            
         } else {
-
             const newEvent = await Event.create(eventData);
             return res.status(201).json({ message: "Successfully created", event: newEvent });
         }

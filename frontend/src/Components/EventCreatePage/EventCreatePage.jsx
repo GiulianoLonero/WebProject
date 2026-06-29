@@ -79,7 +79,7 @@ const EventCreatePage = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 
-                if(resetEvent) resetEvent(); 
+                resetEvent(); 
             }
 
             navigate("/");
