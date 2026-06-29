@@ -32,7 +32,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, { //inizializzazione di Socket.IO
     cors: {
-        origin: "https://e-vent-theta.vercel.app", //
+        origin: "https://e-vent-theta.vercel.app",
         methods: ["GET", "POST"]
     }
 });

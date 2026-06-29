@@ -15,7 +15,7 @@ const verifyToken = (req,res,next) => {
         if (err){
             return res.status(403).json({message: "Access denied"})
         }
-        req.user = decoded;
+        req.user = decoded; //decodifica il token in id e lo manda alla seguente funzione
         
         next();
     });

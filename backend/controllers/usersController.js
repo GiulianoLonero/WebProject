@@ -1,20 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt")
 
-const verify = async (req,res) => {
-    try{
-        const user = await User.findById(req.user.id).select("-password -refreshToken");
-
-        if(!user){
-            return res.status(404).json({message: "Access denied"});
-        }
-        return res.status(200).json({message: "Access granted", userData: user})
-    }catch(error){
-        console.error("Verification error:", error.message);
-        return res.status(500).json({message: "Server error"});
-    }
-};
-
 // Create User
 const register = async(req,res) => {
     try{
@@ -102,7 +88,6 @@ const editUser = async (req,res)=>{
 }
 
 module.exports = {
-    verify,
     register,
     getUser,
     editUser

@@ -24,7 +24,7 @@ const login= async(req,res) => {
         // Trial limiter by trials
         if(user.lockUntil && user.lockUntil > Date.now()){
             const blockedFor = Math.ceil((user.lockUntil - Date.now()) / (1000 * 60));
-            return res.status(423).json({ 
+            return res.status(423).json({ //423 risorsa bloccata
                 message: `Blocked Account. Try again in ${blockedFor} minutes.`
             });
         }
